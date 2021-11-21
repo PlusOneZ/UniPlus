@@ -1,5 +1,7 @@
 package cn.edu.tongji.uniplus.nearby_place.model;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -7,6 +9,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "nearby_user_publish_place", schema = "uniplus_nearby_place", catalog = "")
 @IdClass(NearbyUserPublishPlaceEntityPK.class)
+@DynamicInsert
 public class NearbyUserPublishPlaceEntity {
     private int publishPlaceId;
     private long publishUserId;

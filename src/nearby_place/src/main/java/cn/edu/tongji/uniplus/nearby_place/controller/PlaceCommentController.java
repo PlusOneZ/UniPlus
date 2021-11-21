@@ -1,7 +1,7 @@
 package cn.edu.tongji.uniplus.nearby_place.controller;
 
 import cn.edu.tongji.uniplus.nearby_place.model.PlaceCommentEntity;
-import cn.edu.tongji.uniplus.nearby_place.service.placeCommentService;
+import cn.edu.tongji.uniplus.nearby_place.service.PlaceCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/place_comment")
-public class placeCommentController {
+public class PlaceCommentController {
     @Autowired
-    private placeCommentService placeCommentService;
+    private PlaceCommentService placeCommentService;
 
     // POST方法 - 增加评论，由前端进行增加
     @PostMapping("/add")
