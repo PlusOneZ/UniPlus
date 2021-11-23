@@ -15,10 +15,4 @@ public class NearbyUserPublishPlaceController {
     @Autowired
     private NearbyUserPublishPlaceService nearbyUserPublishPlaceService;
 
-    @PostMapping("/add")
-    public ResponseEntity<String> addNearbyUserPublishPlaceService(
-            @RequestBody NearbyUserPublishPlaceEntity nearbyUserPublishPlaceEntity) {
-        nearbyUserPublishPlaceService.addNearbyUserPublishPlace(nearbyUserPublishPlaceEntity);
-        return ResponseEntity.ok("添加成功");
-    }
 }

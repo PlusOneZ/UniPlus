@@ -1,11 +1,14 @@
 package cn.edu.tongji.uniplus.nearby_place.model;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "share_route_contain_place", schema = "uniplus_nearby_place", catalog = "")
 @IdClass(ShareRouteContainPlaceEntityPK.class)
+@DynamicInsert
 public class ShareRouteContainPlaceEntity {
     private int routeShareId;
     private int routePlaceId;

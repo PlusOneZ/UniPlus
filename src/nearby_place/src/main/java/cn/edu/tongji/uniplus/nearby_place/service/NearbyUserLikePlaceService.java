@@ -10,7 +10,4 @@ public class NearbyUserLikePlaceService {
     @Autowired
     private NearbyUserLikePlaceRepository userLikePlaceRepository;
 
-    public void addUserLikePlace(NearbyUserLikePlaceEntity nearbyUserLikePlaceEntity) {
-        userLikePlaceRepository.save(nearbyUserLikePlaceEntity);
-    }
 }

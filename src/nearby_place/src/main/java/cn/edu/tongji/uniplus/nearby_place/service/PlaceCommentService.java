@@ -10,8 +10,5 @@ public class PlaceCommentService {
     @Autowired
     private PlaceCommentRepository placeCommentRepository;
 
-    // 添加一条评论
-    public void addComment(PlaceCommentEntity placeComment) {
-        placeCommentRepository.save(placeComment);
-    }
+
 }

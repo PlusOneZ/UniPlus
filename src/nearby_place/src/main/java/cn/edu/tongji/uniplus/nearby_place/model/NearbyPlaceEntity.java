@@ -1,9 +1,12 @@
 package cn.edu.tongji.uniplus.nearby_place.model;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@DynamicInsert
 @Table(name = "nearby_place", schema = "uniplus_nearby_place", catalog = "")
 public class NearbyPlaceEntity {
     private int placeId;
