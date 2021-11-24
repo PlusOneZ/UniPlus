@@ -1,6 +1,7 @@
 package cn.edu.tongji.uniplus.nearby_place.model;
 
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -9,6 +10,7 @@ import java.util.Objects;
 @Table(name = "place_img", schema = "uniplus_nearby_place", catalog = "")
 @IdClass(PlaceImgEntityPK.class)
 @DynamicInsert
+@DynamicUpdate
 public class PlaceImgEntity {
     private int placeId;
     private String imgLink;
