@@ -27,6 +27,12 @@ public class LoginService {
             return 200;
     }
 
+    /**
+     * userLogin 通过电话号码登陆的服务。
+     *
+     * @author 卓正一
+     * @since 2021-11-24 9:08 PM
+     */
     public LoginStatus userLogin(String userPhone, String password) {
         Optional<UserEntity> user = userRepository.findByUserPhone(userPhone);
         if (user.isEmpty()) {
@@ -39,6 +45,11 @@ public class LoginService {
         }
     }
 
+    /**
+     * getUserIdByPhone 用电话获取用户id
+     * @author 卓正一
+     * @since 2021-11-24 9:08 PM
+     */
     public Long getUserIdByPhone(String userPhone) {
         Optional<UserEntity> user = userRepository.findByUserPhone(userPhone);
         if (user.isEmpty()) {
@@ -48,6 +59,11 @@ public class LoginService {
         }
     }
 
+    /**
+     * LoginStatus 用于表征用户登录状态的枚举变量。
+     * @author 卓正一
+     * @since 2021-11-24 9:09 PM
+     */
     public enum LoginStatus {
         NoUser, IncorrectPassword, Success
     }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 /**
- * SsoLoginController
+ * SsoLoginController 前后端分离下尝试使用的登陆模块。
  *
  * @author 卓正一
  * @since 2021/11/24 7:53 PM

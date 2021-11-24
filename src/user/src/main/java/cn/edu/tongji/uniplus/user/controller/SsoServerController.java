@@ -11,13 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * SsoClientController
+ * SsoClientController 本该是前后端不分离情况下的api
  *
  * @author 卓正一
  * @since 2021/11/24 4:11 PM
- */
-/**
- * Sa-Token-SSO Server端 Controller
  */
 @RestController
 public class SsoServerController {
@@ -25,7 +22,7 @@ public class SsoServerController {
     /*
      * SSO-Server端：处理所有SSO相关请求 (下面的章节我们会详细列出开放的接口)
      */
-    @RequestMapping("/sso/*")
+    @RequestMapping("/sso/request")
     public Object ssoRequest() {
         return SaSsoHandle.serverRequest();
     }
