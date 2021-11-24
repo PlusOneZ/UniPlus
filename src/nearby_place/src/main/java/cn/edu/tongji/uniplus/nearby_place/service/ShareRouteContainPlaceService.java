@@ -10,7 +10,4 @@ public class ShareRouteContainPlaceService {
     @Autowired
     private ShareRouteContainPlaceRepository shareRouteContainPlaceRepository;
 
-    public void addShareRouteContainPlace(ShareRouteContainPlaceEntity shareRouteContainPlaceEntity) {
-        shareRouteContainPlaceRepository.save(shareRouteContainPlaceEntity);
-    }
 }

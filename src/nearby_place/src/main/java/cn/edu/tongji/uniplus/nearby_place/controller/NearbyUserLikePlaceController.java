@@ -14,10 +14,4 @@ import org.springframework.web.bind.annotation.RestController;
 public class NearbyUserLikePlaceController {
     @Autowired
     private NearbyUserLikePlaceService userLikePlaceService;
-
-    @PostMapping("/add")
-    public ResponseEntity<String> addUserLikePlace(@RequestBody NearbyUserLikePlaceEntity nearbyUserLikePlaceEntity) {
-        userLikePlaceService.addUserLikePlace(nearbyUserLikePlaceEntity);
-        return ResponseEntity.ok("添加收藏成功");
-    }
 }

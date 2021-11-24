@@ -10,7 +10,4 @@ public class NearbyUserPublishPlaceService {
     @Autowired
     private NearbyUserPublishPlaceRepository nearbyUserPublishPlaceRepository;
 
-    public void addNearbyUserPublishPlace(NearbyUserPublishPlaceEntity nearbyUserPublishPlaceEntity) {
-        nearbyUserPublishPlaceRepository.save(nearbyUserPublishPlaceEntity);
-    }
 }

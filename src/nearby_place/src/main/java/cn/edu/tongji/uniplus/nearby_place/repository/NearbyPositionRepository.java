@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NearbyPositionRepository extends JpaRepository<NearbyPositionEntity, Integer> {
+    public NearbyPositionEntity findNearbyPositionEntityByPositionId(int Id);
+    public NearbyPositionEntity findNearbyPositionEntityByPositionName(String Name);
+    public NearbyPositionEntity deleteNearbyPositionEntityByPositionId(int Id);
+    public NearbyPositionEntity deleteNearbyPositionEntityByPositionName(String Name);
 }

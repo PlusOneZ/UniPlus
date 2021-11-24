@@ -23,22 +23,4 @@ public class PlaceRouteShareController {
     @Autowired
     private ShareRouteContainPlaceService shareRouteContainPlaceService;
 
-    @PostMapping("/add/place_route_share")
-    public ResponseEntity<String> addPlaceRouteShareService(
-            @RequestBody PlaceRouteShareEntity placeRouteShareEntity) {
-        placeRouteShareService.addPlaceRouteShare(placeRouteShareEntity);
-        return ResponseEntity.ok("添加路线分享成功");
-    }
-
-    @PostMapping("/add/place_route_share_tag")
-    public ResponseEntity<String> addPlaceRouteShareTag(@RequestBody PlaceRouteShareTagEntity placeRouteShareTagEntity) {
-        placeRouteShareTagService.addPlaceRouteShareTag(placeRouteShareTagEntity);
-        return ResponseEntity.ok("添加路线分享标签成功");
-    }
-
-    @PostMapping("/add/share_route_contain_place")
-    public ResponseEntity<String> addShareRouteContainPlace(@RequestBody ShareRouteContainPlaceEntity shareRouteContainPlaceEntity) {
-        shareRouteContainPlaceService.addShareRouteContainPlace(shareRouteContainPlaceEntity);
-        return ResponseEntity.ok("添加路线分享内容地点成功");
-    }
 }

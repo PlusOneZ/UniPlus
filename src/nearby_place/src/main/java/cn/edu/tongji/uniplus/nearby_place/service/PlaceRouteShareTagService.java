@@ -10,7 +10,4 @@ public class PlaceRouteShareTagService {
     @Autowired
     private PlaceRouteShareTagRepository placeRouteShareTagRepository;
 
-    public void addPlaceRouteShareTag(PlaceRouteShareTagEntity placeRouteShareTagEntity){
-        placeRouteShareTagRepository.save(placeRouteShareTagEntity);
-    }
 }
