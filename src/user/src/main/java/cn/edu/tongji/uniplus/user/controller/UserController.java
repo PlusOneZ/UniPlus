@@ -1,9 +1,8 @@
 package cn.edu.tongji.uniplus.user.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
-import cn.edu.tongji.uniplus.user.model.uniplusUser;
-import cn.edu.tongji.uniplus.user.service.uniplusUserService;
-import org.apache.coyote.Response;
+import cn.edu.tongji.uniplus.user.model.UserEntity;
+import cn.edu.tongji.uniplus.user.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.DigestUtils;
@@ -11,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
-public class uniplusUserController {
+public class UserController {
 
     @Autowired
-    private uniplusUserService uniplusUserService;
+    private LoginService loginService;
 
     /*
         @模块：登录
@@ -24,10 +23,10 @@ public class uniplusUserController {
      */
     @GetMapping("/login")
     public ResponseEntity<String> userLogin(@RequestParam("userId") Long userId, @RequestParam("userPassword") String userPassword) {
-        uniplusUser loginUser = new uniplusUser();
+        UserEntity loginUser = new UserEntity();
         loginUser.setUserId(userId);
         loginUser.setUserPassword(DigestUtils.md5DigestAsHex(userPassword.getBytes()));
-        Integer loginStatus = uniplusUserService.userLogin(loginUser);
+        Integer loginStatus = loginService.userLogin(loginUser);
         if (loginStatus == -1)
             return ResponseEntity.ok("账号不存在！");
         else if (loginStatus == 404)
@@ -49,12 +48,12 @@ public class uniplusUserController {
                                                @RequestParam("userPassword") String userPassword,
                                                @RequestParam("userGender") Integer userGender) {
 
-        uniplusUser uniplusUser = new uniplusUser();//创建一个空用户，然后设置参数里请求的信息
+        UserEntity uniplusUser = new UserEntity();//创建一个空用户，然后设置参数里请求的信息
         uniplusUser.setUserNickName(userNickName);
         uniplusUser.setUserPassword(DigestUtils.md5DigestAsHex(userPassword.getBytes()));
         uniplusUser.setUserGender(userGender);
         //调用服务层里的注册函数就可以啦
-        return ResponseEntity.ok("您的账号是: " + uniplusUserService.userRegister(uniplusUser));
+        return ResponseEntity.ok("您的账号是: " + loginService.userRegister(uniplusUser));
     }
 
     /*

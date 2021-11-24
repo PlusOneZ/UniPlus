@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/role")
-public class uniplusRoleController {
+public class RoleController {
 
 }
