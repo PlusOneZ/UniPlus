@@ -5,7 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface PlaceRouteShareRepository extends JpaRepository<PlaceRouteShareEntity,Integer> {
+import java.util.List;
 
+@Repository
+public interface PlaceRouteShareRepository extends JpaRepository<PlaceRouteShareEntity, Integer> {
+    public List<PlaceRouteShareEntity> findPlaceRouteShareEntitiesByRoutePublisherId(Long userId);
+
+    public List<PlaceRouteShareEntity> findPlaceRouteShareEntitiesByShareRouteTitleContaining(String partTitle);
+
+    public PlaceRouteShareEntity findPlaceRouteShareEntityByRouteShareId(Integer shareId);
+
+    public PlaceRouteShareEntity deletePlaceRouteShareEntityByRouteShareId(Integer shareId);
 }

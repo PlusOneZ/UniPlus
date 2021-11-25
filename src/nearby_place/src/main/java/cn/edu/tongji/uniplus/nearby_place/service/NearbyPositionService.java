@@ -7,6 +7,8 @@ import cn.edu.tongji.uniplus.nearby_place.tool.JpaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NearbyPositionService {
     @Autowired
@@ -19,6 +21,12 @@ public class NearbyPositionService {
         return nearbyPositionRepository.save(nearbyPositionEntity);
     }
 
+    /*
+        查找全部NearbyPosition
+     */
+    public List<NearbyPositionEntity> getAllNearbyPosition() {
+        return nearbyPositionRepository.findAll();
+    }
     /*
         根据 ID 地名 查找 NearbyPosition
      */
