@@ -1,18 +1,18 @@
 package cn.edu.tongji.uniplus.user.service;
 
-import cn.edu.tongji.uniplus.user.repository.uniplusRoleRepository;
-import cn.edu.tongji.uniplus.user.repository.uniplusUserRepository;
+import cn.edu.tongji.uniplus.user.repository.RoleRepository;
+import cn.edu.tongji.uniplus.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class UniplusRoleService {
+public class RoleService {
 
     @Autowired
-    private uniplusRoleRepository uniplusRoleRepository;
+    private RoleRepository roleRepository;
     @Autowired
-    private uniplusUserRepository uniplusUserRepository;
+    private UserRepository userRepository;
     @Autowired
     private StpInterfaceImpl stpInterface;
 
