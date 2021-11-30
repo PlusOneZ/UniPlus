@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      #      discovery:
+      #        locator:
+      #          enabled: true
+      #          lower-case-service-id: true # 表示使用小写的 service id 作为第一重映射
+      #          route-id-prefix: /api/v1/
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedHeaders: "*"
+            allowedOrigins:
+              - "localhost://8081"
+              - "localhost://8080"
+            allowedMethods:
+              - GET
+                POST
+                DELETE
+                PUT
+                OPTION
+            allowCredentials: true
+      routes:                          # Add your services here
+        - id: user-service            # Only for identifying your rules
+          uri: lb://user-service      # Use this pattern: lb://<service-name-of-eureka>
+          predicates:                  # Pattern /api/{segment}/<locator-of-your-apis>/**, locator 请见飞书文档
+            - Path=/api/{segment}/user/**
+
+  application:
+    name: gateway
+
+eureka:
+  client:
+    register-with-eureka: true #注册到Eureka的注册中心
+    fetch-registry: true #获取注册实例列表
+    service-url:
+      defaultZone: http://localhost:8100/eureka/ #配置注册中心地址

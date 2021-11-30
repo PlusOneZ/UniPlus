@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.edu.tongji.uniplus</groupId>
-    <artifactId>gateway</artifactId>
+    <artifactId>eureka</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>gateway</name>
-    <description>gateway</description>
+    <name>eureka</name>
+    <description>eureka</description>
     <properties>
         <java.version>11</java.version>
         <spring-cloud.version>2020.0.4</spring-cloud.version>
@@ -20,11 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
 
         <dependency>
@@ -53,15 +49,5 @@
             </plugin>
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
 </project>
