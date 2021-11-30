@@ -4,12 +4,17 @@ package cn.edu.tongji.uniplus.good_information.model;/*
     @Description：
 */
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 @Table(name = "good_user_view_good", schema = "uniplus_good_information", catalog = "")
+@DynamicUpdate
+@DynamicInsert
 public class GoodUserViewGoodEntity {
     private long viewGoodId;
     private Long viewGoodUserId;

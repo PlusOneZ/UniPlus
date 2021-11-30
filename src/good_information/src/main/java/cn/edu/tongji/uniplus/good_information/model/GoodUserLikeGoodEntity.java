@@ -4,6 +4,9 @@ package cn.edu.tongji.uniplus.good_information.model;/*
     @Description：
 */
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -11,6 +14,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "good_user_like_good", schema = "uniplus_good_information", catalog = "")
 @IdClass(GoodUserLikeGoodEntityPK.class)
+@DynamicInsert
+@DynamicUpdate
 public class GoodUserLikeGoodEntity {
     private long likeGoodId;
     private long likeUserId;
