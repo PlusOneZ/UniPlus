@@ -1,5 +1,8 @@
 package cn.edu.tongji.uniplus.user.model;
 
+import org.apache.catalina.User;
+import org.hibernate.annotations.DynamicInsert;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -13,6 +16,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "uniplus_user", schema = "uniplus_user", catalog = "")
+@DynamicInsert
 public class UserEntity implements Serializable {
     private long userId;
     private String userSchoolId;

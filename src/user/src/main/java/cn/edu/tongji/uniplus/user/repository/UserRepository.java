@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     UserEntity findByUserId(Long userId);
 
-    Optional<UserEntity> findByUserPhone(String phone);
+    Optional<UserEntity> findByUserPhoneAndUserPhoneCode(String userPhone, int userPhoneCode);
 
     // 测试用的根据用户ID修改用户名的接口
     @Modifying

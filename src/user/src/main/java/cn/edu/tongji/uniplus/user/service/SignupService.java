@@ -5,19 +5,19 @@ import org.springframework.stereotype.Service;
 @Service
 public interface SignupService {
 
-    Boolean checkPhoneAvailable(String phoneCode, String phone);
+    Boolean checkPhoneAvailable(Integer phoneCode, String phone);
 
-    void changeUserPassword(String phoneCode, String phone, String newPassword);
+    void changeUserPassword(Integer phoneCode, String phone, String newPassword);
 
     void changeUserPassword(Long userId, String newPassword);
 
     // TODO 分割一个发送短信的服务接口
     // TODO 一个身份证照片检验服务
 
-    Long userSignup(String phoneCode, String phone, String password, String username);
+    Long userSignup(Integer phoneCode, String phone, String password, String username);
 
-    Long userSignup(String phoneCode, String phone, String password, String username, String gender);
+    Long userSignup(Integer phoneCode, String phone, String password, String username, Integer gender);
 
-    void setUserGender(Long customerId, String gender);
+    void setUserGender(Long userId, Integer gender);
 
 }

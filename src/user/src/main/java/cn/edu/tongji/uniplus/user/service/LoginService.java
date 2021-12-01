@@ -33,8 +33,8 @@ public class LoginService {
      * @author 卓正一
      * @since 2021-11-24 9:08 PM
      */
-    public LoginStatus userLogin(String userPhone, String password) {
-        Optional<UserEntity> user = userRepository.findByUserPhone(userPhone);
+    public LoginStatus userLogin(Integer phoneCode, String phone, String password) {
+        Optional<UserEntity> user = userRepository.findByUserPhoneAndUserPhoneCode(phone, phoneCode);
         if (user.isEmpty()) {
             return LoginStatus.NoUser;
         } else {
@@ -50,8 +50,8 @@ public class LoginService {
      * @author 卓正一
      * @since 2021-11-24 9:08 PM
      */
-    public Long getUserIdByPhone(String userPhone) {
-        Optional<UserEntity> user = userRepository.findByUserPhone(userPhone);
+    public Long getUserIdByPhone(Integer phoneCode, String phone) {
+        Optional<UserEntity> user = userRepository.findByUserPhoneAndUserPhoneCode(phone, phoneCode);
         if (user.isEmpty()) {
             throw new RuntimeException("User phone not registered");
         } else {

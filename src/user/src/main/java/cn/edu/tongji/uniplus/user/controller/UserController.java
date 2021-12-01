@@ -46,31 +46,6 @@ public class UserController {
     }
 
     /*
-    @模块：注册
-    @作用：可以让用户注册，把数据加入到系统里
-    @参数：用户的用户名、密码、性别。最终会返回系统为用户生成的账号
-    */
-    @GetMapping("/register")
-    public ResponseEntity<String> userRegister(@RequestParam("userNickName") String userNickName,
-                                               @RequestParam("userPassword") String userPassword,
-                                               @RequestParam("userGender") Integer userGender) {
-
-        UserEntity uniplusUser = new UserEntity();//创建一个空用户，然后设置参数里请求的信息
-        Map<String, String> user = new HashMap<>();
-        uniplusUser.setUserNickName(userNickName);
-        uniplusUser.setUserPassword(DigestUtils.md5DigestAsHex(userPassword.getBytes()));
-        uniplusUser.setUserGender(userGender);
-        //调用服务层里的注册函数就可以啦
-
-        user.put("nickname", userNickName);
-        user.put("password", "" + uniplusUser.getUserId());
-        user.put("avatarLink", uniplusUser.getUserAvatarLink());
-        rabbitTemplate.convertAndSend("UserDirectExchange", "UserDirectRouting", user);
-//        loginService.userRegister(uniplusUser);
-        return ResponseEntity.ok("您的账号是: " + 11);
-    }
-
-    /*
     @模块：登出
     @作用：可以让用户注销，sa-token在后端清楚相关信息
     */

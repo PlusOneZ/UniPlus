@@ -24,14 +24,15 @@ public class SsoLoginController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public SaResult userSsoLogin(
-            @RequestParam String userPhone,
+            @RequestParam Integer phoneCode,
+            @RequestParam String phone,
             @RequestParam String password
     ) {
-        switch (loginService.userLogin(userPhone, password)) {
+        switch (loginService.userLogin(phoneCode, phone, password)) {
             case IncorrectPassword:
                 return SaResult.code(400).setData("Incorrect password");
             case Success:
-                StpUtil.login(loginService.getUserIdByPhone(userPhone));
+                StpUtil.login(loginService.getUserIdByPhone(phoneCode, phone));
                 return SaResult.data("success");
             case NoUser:
                 return SaResult.code(404).setData("No such user");

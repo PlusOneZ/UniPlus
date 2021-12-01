@@ -1,0 +1,114 @@
+package cn.edu.tongji.uniplus.user.service.impl;
+
+import cn.edu.tongji.uniplus.user.model.UserEntity;
+import cn.edu.tongji.uniplus.user.payload.UserForQueue;
+import cn.edu.tongji.uniplus.user.repository.UserRepository;
+import cn.edu.tongji.uniplus.user.service.SignupService;
+import cn.edu.tongji.uniplus.user.service.exception.DataFormatException;
+import cn.edu.tongji.uniplus.user.service.exception.UserAlreadyExistsException;
+import cn.edu.tongji.uniplus.user.service.exception.UserNotExistException;
+import com.github.yitter.idgen.YitIdHelper;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
+
+import javax.annotation.Resource;
+import java.util.Optional;
+
+/**
+ * SignupServiceImpl
+ *
+ * @author 卓正一
+ * @since 2021/12/1 4:30 PM
+ */
+@Service
+public class SignupServiceImpl implements SignupService {
+
+    @Resource
+    UserRepository userRepository;
+
+    @Resource
+    RabbitTemplate rabbitTemplate;
+
+    @Override
+    public Boolean checkPhoneAvailable(Integer phoneCode, String phone) {
+        return userRepository.findByUserPhoneAndUserPhoneCode(phone, phoneCode).isEmpty();
+    }
+
+    @Override
+    public void changeUserPassword(Integer phoneCode, String phone, String newPassword) {
+        Optional<UserEntity> userEntityOptional = userRepository.findByUserPhoneAndUserPhoneCode(phone, phoneCode);
+        if (userEntityOptional.isPresent()) {
+            UserEntity user = userEntityOptional.get();
+            user.setUserPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
+            userRepository.save(user);
+        } else {
+            throw new UserNotExistException();
+        }
+    }
+
+    @Override
+    public void changeUserPassword(Long userId, String newPassword) {
+        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
+        if (userEntityOptional.isPresent()) {
+            UserEntity user = userEntityOptional.get();
+            user.setUserPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
+            userRepository.save(user);
+        } else {
+            throw new UserNotExistException();
+        }
+    }
+
+    @Override
+    public Long userSignup(Integer phoneCode, String phone, String password, String username) {
+        return userSignup(phoneCode, phone, password, username, null);
+    }
+
+    @Override
+    public Long userSignup(Integer phoneCode, String phone, String password, String username, @Nullable Integer gender) {
+        if (!checkPhoneAvailable(phoneCode, phone)) {
+            // 已经有这个用户了
+            throw new UserAlreadyExistsException();
+        }
+
+        if (phone.length() != 11) {
+            throw new DataFormatException();
+        } else {
+            try {
+                Long.parseLong(phone);
+            } catch (NumberFormatException e) {
+                throw new DataFormatException();
+            }
+        }
+
+        UserEntity user = new UserEntity();
+
+        user.setUserId(YitIdHelper.nextId());
+        user.setUserPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+        user.setUserNickName(username);
+        user.setUserPhone(phone);
+        user.setUserPhoneCode(phoneCode);
+        if (gender != null)
+            user.setUserGender(gender);
+
+        UserForQueue forQueue = new UserForQueue(user.getUserId(), user.getUserNickName());
+        userRepository.save(user);
+
+        rabbitTemplate.convertAndSend("UserDirectExchange", "UserDirectRouting", forQueue.toMap());
+
+        return user.getUserId();
+    }
+
+    @Override
+    public void setUserGender(Long userId, Integer gender) {
+        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
+        if (userEntityOptional.isPresent()) {
+            UserEntity user = userEntityOptional.get();
+            user.setUserGender(gender);
+            userRepository.save(user);
+        } else {
+            throw new UserNotExistException();
+        }
+    }
+}
