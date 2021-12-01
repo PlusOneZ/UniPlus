@@ -42,6 +42,12 @@ spring:
     # Redis服务器连接密码（默认为空）
     password:
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 
 eureka:
   client:

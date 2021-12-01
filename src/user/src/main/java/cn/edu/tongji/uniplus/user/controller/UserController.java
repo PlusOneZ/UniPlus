@@ -3,10 +3,13 @@ package cn.edu.tongji.uniplus.user.controller;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.edu.tongji.uniplus.user.model.UserEntity;
 import cn.edu.tongji.uniplus.user.service.LoginService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/user")
@@ -15,6 +18,8 @@ public class UserController {
     @Autowired
     private LoginService loginService;
 
+    @Resource
+    RabbitTemplate rabbitTemplate;
     /*
         @模块：登录
         @作用：可以让用户登录，让sa-token框架认证用户的登录从而允许用户进行进一步的操作
@@ -53,7 +58,10 @@ public class UserController {
         uniplusUser.setUserPassword(DigestUtils.md5DigestAsHex(userPassword.getBytes()));
         uniplusUser.setUserGender(userGender);
         //调用服务层里的注册函数就可以啦
-        return ResponseEntity.ok("您的账号是: " + loginService.userRegister(uniplusUser));
+
+        rabbitTemplate.convertAndSend("UserDirectExchange", "UserDirectRouting", uniplusUser);
+//        loginService.userRegister(uniplusUser);
+        return ResponseEntity.ok("您的账号是: " + 11);
     }
 
     /*

@@ -1,6 +1,7 @@
 package cn.edu.tongji.uniplus.user.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "uniplus_user", schema = "uniplus_user", catalog = "")
-public class UserEntity {
+public class UserEntity implements Serializable {
     private long userId;
     private String userSchoolId;
     private String userNickName;
