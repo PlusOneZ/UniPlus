@@ -10,6 +10,8 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -54,12 +56,16 @@ public class UserController {
                                                @RequestParam("userGender") Integer userGender) {
 
         UserEntity uniplusUser = new UserEntity();//创建一个空用户，然后设置参数里请求的信息
+        Map<String, String> user = new HashMap<>();
         uniplusUser.setUserNickName(userNickName);
         uniplusUser.setUserPassword(DigestUtils.md5DigestAsHex(userPassword.getBytes()));
         uniplusUser.setUserGender(userGender);
         //调用服务层里的注册函数就可以啦
 
-        rabbitTemplate.convertAndSend("UserDirectExchange", "UserDirectRouting", uniplusUser);
+        user.put("nickname", userNickName);
+        user.put("password", "" + uniplusUser.getUserId());
+        user.put("avatarLink", uniplusUser.getUserAvatarLink());
+        rabbitTemplate.convertAndSend("UserDirectExchange", "UserDirectRouting", user);
 //        loginService.userRegister(uniplusUser);
         return ResponseEntity.ok("您的账号是: " + 11);
     }

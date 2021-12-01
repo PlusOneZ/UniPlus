@@ -18,7 +18,7 @@ public class RabbitMqConfig {
 
     @Bean
     public Queue TestDirectQueue() {
-        return new Queue("UserRegisterQueue",true);
+        return new Queue("UserRegisterQueue", true);
     }
 
     @Bean
