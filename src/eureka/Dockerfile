@@ -1,5 +1,5 @@
 # 基于哪个镜像
-FROM java:8
+FROM java:11-jre
 # 将本地文件夹挂载到当前容器
 VOLUME /root/app/demo/eureka
 # 复制文件到容器
