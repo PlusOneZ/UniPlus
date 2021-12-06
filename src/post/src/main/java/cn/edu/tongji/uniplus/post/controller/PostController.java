@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/post")
+@CrossOrigin
 public class PostController {
     @Resource
     private PostService postService;
@@ -30,14 +31,14 @@ public class PostController {
     }
 
     // 点赞帖子
-    @PostMapping("/like")
+    @PostMapping("/like/post")
     public ResponseEntity<String> pushNewPostLike(@RequestBody PostUserLikePost postUserLikePost) {
         postService.userLikePost(postUserLikePost);
         return ResponseEntity.status(200).body("点赞帖子成功");
     }
 
     // 点赞回复
-    @PostMapping("/reply/like")
+    @PostMapping("/like/reply")
     public ResponseEntity<String> pushNewReplyLike(@RequestBody PostUserLikeReply postUserLikeReply) {
         postService.userLikeReply(postUserLikeReply);
         return ResponseEntity.status(200).body("点赞回复成功");
@@ -56,7 +57,7 @@ public class PostController {
     }
 
     // 找用户发过的所有回复
-    @GetMapping("/reply/{userId}")
+    @GetMapping("/reply/user/{userId}")
     public ResponseEntity<List<PostReply>> getReplyListByUserId(@PathVariable("userId") Long userId) {
         return ResponseEntity.status(200).body(postService.getReplyByUserId(userId));
     }
@@ -88,16 +89,16 @@ public class PostController {
     }
 
     // 删除帖子的点赞
-    @DeleteMapping("/like/post/{userId}/{postId}")
-    public ResponseEntity<String> deletePostLike(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId) {
+    @DeleteMapping("/like/post")
+    public ResponseEntity<String> deletePostLike(@RequestParam("user_id") Long userId, @RequestParam("post_id") Long postId) {
         postService.userDeleteLikePost(postId, userId);
         return ResponseEntity.status(200).body("删除帖子点赞成功");
     }
 
     // 删除回复的点赞
-    @DeleteMapping("/like/reply/{userId}/{postId}")
-    public ResponseEntity<String> deleteReplyLike(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId) {
-        postService.userDeleteLikeReply(postId, userId);
+    @DeleteMapping("/like/reply")
+    public ResponseEntity<String> deleteReplyLike(@RequestParam("user_id") Long userId, @RequestParam("reply_id") Long replyId) {
+        postService.userDeleteLikeReply(replyId, userId);
         return ResponseEntity.status(200).body("删除回复点赞成功");
     }
 }

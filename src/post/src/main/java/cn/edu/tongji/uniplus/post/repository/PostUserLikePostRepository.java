@@ -13,7 +13,7 @@ public interface PostUserLikePostRepository extends JpaRepository<PostUserLikePo
     PostUserLikePost findPostUserLikePostsByPostLikePostIdAndPostLikeUserId(Long postId, Long userId);
 
     // 某用户给某帖子取消点赞
-    PostUserLikePost deletePostUserLikePostsByPostLikePostIdAndPostLikeUserId(Long postId, Long userId);
+    void deletePostUserLikePostsByPostLikePostIdAndPostLikeUserId(Long postId, Long userId);
 
     // 获取某用户所有的点赞记录
     List<PostUserLikePost> findPostUserLikePostsByPostLikeUserId(Long userId);

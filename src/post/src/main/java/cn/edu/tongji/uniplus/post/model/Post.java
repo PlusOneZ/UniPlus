@@ -1,4 +1,8 @@
-package cn.edu.tongji.uniplus.post.model;
+package cn.edu.tongji.uniplus.post.model;/*
+    @Created by Jary-Li on 2021/12/6. All rights reserved.
+    @Name: UniPlus
+    @Description：
+*/
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -10,9 +14,9 @@ import javax.persistence.Id;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-@DynamicInsert
-@DynamicUpdate
 @Entity
+@DynamicUpdate
+@DynamicInsert
 public class Post {
     private long postId;
     private Long postUserId;

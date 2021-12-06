@@ -46,6 +46,11 @@ public class PostService {
 
     // 加载某条帖子的所有回复？
     public List<PostReply> getPostReplyListByPostId(Long postId) {
+        return postReplyRepository.findPostRepliesByReplyPostId(postId);
+    }
+
+    // 加载某条回复的所有回复
+    public List<PostReply> getPostReplyListByReplyId(Long postId) {
         return postReplyRepository.findPostRepliesByParentReplyId(postId);
     }
 
@@ -57,7 +62,7 @@ public class PostService {
     // 删除某条回复
     @Transactional
     public void deleteReply(Long replyId) {
-        postReplyRepository.deletePostReplyByParentReplyId(replyId);
+        postReplyRepository.deletePostReplyByReplyId(replyId);
     }
 
     // 获取某用户的所有回复

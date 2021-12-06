@@ -1,6 +1,5 @@
 package cn.edu.tongji.uniplus.post.repository;
 
-import cn.edu.tongji.uniplus.post.model.PostUserLikePost;
 import cn.edu.tongji.uniplus.post.model.PostUserLikeReply;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,7 +15,7 @@ public interface PostUserLikeReplyRepository extends JpaRepository<PostUserLikeR
     PostUserLikeReply findPostUserLikeReplyByReplyLikeReplyIdAndReplyLikeUserId(Long replyId, Long userId);
 
     // 某用户给某回复取消点赞
-    PostUserLikeReply deletePostUserLikeReplyByReplyLikeReplyIdAndReplyLikeUserId(Long replyId, Long userId);
+    void deletePostUserLikeReplyByReplyLikeReplyIdAndReplyLikeUserId(Long replyId, Long userId);
 
     // 获取某用户所有点赞回复的记录
     List<PostUserLikeReply> findPostUserLikePostsByReplyLikeReplyId(Long userId);
