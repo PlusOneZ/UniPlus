@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username:
+    password:
+    url: jdbc:mysql://81.68.233.64:3306/uniplus_post
+server:
+  port: 8083

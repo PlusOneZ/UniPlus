@@ -1,6 +1,6 @@
 spring:
   datasource:
-    username: 
+    username:
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://81.68.233.64:3306/uniplus_good_information
