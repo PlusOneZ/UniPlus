@@ -4,10 +4,8 @@ import cn.dev33.satoken.config.SaTokenConfig;
 import cn.dev33.satoken.sso.SaSsoHandle;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
-//import com.ejlchina.okhttps.OkHttps;
 import cn.edu.tongji.uniplus.user.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

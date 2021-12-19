@@ -30,11 +30,11 @@ spring:
             - Path=/api/{segment}/user/**
 
   application:
-    name: gateway
+    name: GATEWAY
 
 eureka:
   client:
     register-with-eureka: true #注册到Eureka的注册中心
     fetch-registry: true #获取注册实例列表
     service-url:
-      defaultZone: http://localhost:8100/eureka/ #配置注册中心地址
+      defaultZone: http://localhost:8761/eureka/ #配置注册中心地址

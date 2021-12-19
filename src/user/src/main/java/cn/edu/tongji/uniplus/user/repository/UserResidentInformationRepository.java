@@ -11,6 +11,6 @@ import java.util.Optional;
  * @author 卓正一
  * @since 2021/12/10 8:58 PM
  */
-public interface UserResidentInformationRepository extends JpaRepository<UserResidentInformationRepository, Long> {
+public interface UserResidentInformationRepository extends JpaRepository<UserResidentInformationEntity, Long> {
     Optional<UserResidentInformationEntity> findByResidentId(String residentId);
 }
