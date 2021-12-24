@@ -27,14 +27,14 @@ spring:
         - id: user-service            # Only for identifying your rules
           uri: lb://user-service      # Use this pattern: lb://<service-name-of-eureka>
           predicates:                  # Pattern /api/{segment}/<locator-of-your-apis>/**, locator 请见飞书文档
-            - Path=/api/{segment}/user/**
+            - Path=/api/{segment}/user/**, /sso/**
 
   application:
-    name: gateway
+    name: GATEWAY
 
 eureka:
   client:
     register-with-eureka: true #注册到Eureka的注册中心
     fetch-registry: true #获取注册实例列表
     service-url:
-      defaultZone: http://localhost:8100/eureka/ #配置注册中心地址
+      defaultZone: http://localhost:8761/eureka/ #配置注册中心地址

@@ -47,55 +47,55 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <configuration>
-                    <imageName>
-                        freemanliu/eureka:v1.0.0
-                    </imageName>
-                    <registryUrl></registryUrl>
-                    <workdir>/work</workdir>
-                    <rm>true</rm>
-                    <env>
-                        <TZ>Asia/Shanghai</TZ>
-                        <JAVA_OPTS>
-                            -XX:+UnlockExperimentalVMOptions \
-                            -XX:+UseCGroupMemoryLimitForHeap \
-                            -XX:MaxRAMFraction=2 \
-                            -XX:CICompilerCount=8 \
-                            -XX:ActiveProcessorCount=8 \
-                            -XX:+UseG1GC \
-                            -XX:+AggressiveOpts \
-                            -XX:+UseFastAccessorMethods \
-                            -XX:+UseStringDeduplication \
-                            -XX:+UseCompressedOops \
-                            -XX:+OptimizeStringConcat
-                        </JAVA_OPTS>
-                    </env>
-                    <baseImage>freemanliu/openjre:8.212</baseImage>
-                    <cmd>
-                        /sbin/tini java ${JAVA_OPTS} -jar ${project.build.finalName}.jar
-                    </cmd>
-                    <!--是否推送image-->
-                    <pushImage>true</pushImage>
-                    <resources>
-                        <resource>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                    <serverId>docker-hub</serverId>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.spotify</groupId>-->
+<!--                <artifactId>docker-maven-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <imageName>-->
+<!--                        uniplus/eureka:v1.0.0-->
+<!--                    </imageName>-->
+<!--                    <registryUrl></registryUrl>-->
+<!--                    <workdir>/work</workdir>-->
+<!--                    <rm>true</rm>-->
+<!--                    <env>-->
+<!--                        <TZ>Asia/Shanghai</TZ>-->
+<!--                        <JAVA_OPTS>-->
+<!--                            -XX:+UnlockExperimentalVMOptions \-->
+<!--                            -XX:+UseCGroupMemoryLimitForHeap \-->
+<!--                            -XX:MaxRAMFraction=2 \-->
+<!--                            -XX:CICompilerCount=8 \-->
+<!--                            -XX:ActiveProcessorCount=8 \-->
+<!--                            -XX:+UseG1GC \-->
+<!--                            -XX:+AggressiveOpts \-->
+<!--                            -XX:+UseFastAccessorMethods \-->
+<!--                            -XX:+UseStringDeduplication \-->
+<!--                            -XX:+UseCompressedOops \-->
+<!--                            -XX:+OptimizeStringConcat-->
+<!--                        </JAVA_OPTS>-->
+<!--                    </env>-->
+<!--                    <baseImage>freemanliu/openjre:8.212</baseImage>-->
+<!--                    <cmd>-->
+<!--                        /sbin/tini java ${JAVA_OPTS} -jar ${project.build.finalName}.jar-->
+<!--                    </cmd>-->
+<!--                    &lt;!&ndash;是否推送image&ndash;&gt;-->
+<!--                    <pushImage>true</pushImage>-->
+<!--                    <resources>-->
+<!--                        <resource>-->
+<!--                            <directory>${project.build.directory}</directory>-->
+<!--                            <include>${project.build.finalName}.jar</include>-->
+<!--                        </resource>-->
+<!--                    </resources>-->
+<!--                    <serverId>docker-hub</serverId>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 

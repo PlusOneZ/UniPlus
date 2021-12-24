@@ -29,7 +29,7 @@ sa-token:
 spring:
 
   application:
-    name: login-service #服务名称
+    name: USER_SERVICE #服务名称
 
   # Redis配置 （SSO模式一和模式二使用Redis来同步会话）
   redis:

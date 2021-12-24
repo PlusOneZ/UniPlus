@@ -13,9 +13,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     UserEntity findByUserIdAndUserPassword(Long userId, String userPassword);
 
-    UserEntity findByUserId(Long userId);
-
-    Optional<UserEntity> findByUserPhoneAndUserPhoneCode(String userPhone, int userPhoneCode);
+    Optional<UserEntity> findByUserPhone(String userPhone);
 
     // 测试用的根据用户ID修改用户名的接口
     @Modifying

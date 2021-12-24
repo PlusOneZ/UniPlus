@@ -4,11 +4,12 @@ import cn.dev33.satoken.config.SaTokenConfig;
 import cn.dev33.satoken.sso.SaSsoHandle;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
-//import com.ejlchina.okhttps.OkHttps;
+import cn.edu.tongji.uniplus.user.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * SsoClientController 本该是前后端不分离情况下的api
@@ -19,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SsoServerController {
 
-    /*
-     * SSO-Server端：处理所有SSO相关请求 (下面的章节我们会详细列出开放的接口)
-     */
+    @Resource
+    LoginService loginService;
+
     @RequestMapping("/sso/request")
     public Object ssoRequest() {
         return SaSsoHandle.serverRequest();
@@ -32,7 +33,7 @@ public class SsoServerController {
      */
     @Autowired
     private void configSso(SaTokenConfig cfg) {
-        // 配置：未登录时返回的View
+        // TODO: Redirect to Login page in frontend
         cfg.sso.setNotLoginView(() -> {
             String msg = "当前会话在SSO-Server端尚未登录，请先访问"
                     + "<a href='/sso/doLogin?name=sa&pwd=123456' target='_blank'> doLogin登录 </a>"
@@ -42,18 +43,17 @@ public class SsoServerController {
 
         // 配置：登录处理函数
         cfg.sso.setDoLoginHandle((name, pwd) -> {
-            // 此处仅做模拟登录，真实环境应该查询数据进行登录
-            if("sa".equals(name) && "123456".equals(pwd)) {
-                StpUtil.login(10001);
-                return SaResult.ok("登录成功！").setData(StpUtil.getTokenValue());
+            switch (loginService.checkUserLogin(name, pwd)) {
+                case IncorrectPassword:
+                    return SaResult.code(400).setData("Incorrect password");
+                case Success:
+                    StpUtil.login(loginService.getUserIdByPhone(name));
+                    return SaResult.data("success");
+                case NoUser:
+                    return SaResult.code(404).setData("No such user");
             }
-            return SaResult.error("登录失败！");
+            return SaResult.code(500).setData("unknown state");
         });
-
-        // 配置 Http 请求处理器 （在模式三的单点注销功能下用到，如不需要可以注释掉）
-//        cfg.sso.setSendHttp(url -> {
-//            return OkHttps.sync(url).get().getBody().toString();
-//        });
     }
 
 }
