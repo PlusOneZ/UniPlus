@@ -27,7 +27,7 @@ spring:
         - id: user-service            # Only for identifying your rules
           uri: lb://user-service      # Use this pattern: lb://<service-name-of-eureka>
           predicates:                  # Pattern /api/{segment}/<locator-of-your-apis>/**, locator 请见飞书文档
-            - Path=/api/{segment}/user/**
+            - Path=/api/{segment}/user/**, /sso/**
 
   application:
     name: GATEWAY

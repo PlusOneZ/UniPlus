@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Api(tags = "Signup")
 @RestController
-@RequestMapping("api/v1/signup")
+@RequestMapping("api/v1/user/signup")
 public class SignupController {
 
     @Resource
