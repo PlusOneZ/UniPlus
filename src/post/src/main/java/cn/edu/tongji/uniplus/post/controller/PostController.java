@@ -11,10 +11,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/post")
-@CrossOrigin
 public class PostController {
     @Resource
     private PostService postService;
+
+    @GetMapping("/post/{postId}")
+    public ResponseEntity<Post> getPostById(@PathVariable("postId") Long postId) {
+        return ResponseEntity.status(200).body(postService.getPostById(postId));
+    }
 
     // 发帖
     @PostMapping()
@@ -45,7 +49,7 @@ public class PostController {
     }
 
     // 找用户发过的所有帖子
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<Post>> getPostListByUserId(@PathVariable("userId") Long userId) {
         return ResponseEntity.status(200).body(postService.getPostListByUserId(userId));
     }
