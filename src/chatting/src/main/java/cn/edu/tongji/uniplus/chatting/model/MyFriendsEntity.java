@@ -8,14 +8,14 @@ import java.util.Objects;
  * @version 1.0.0
  * @ClassName MyFriendsEntity.java
  * @Description TODO
- * @createTime 2021年12月06日 13:42:00
+ * @createTime 2021年12月10日 19:30:00
  */
 @Entity
 @Table(name = "my_friends", schema = "uniplus_chatting", catalog = "")
 public class MyFriendsEntity {
     private long id;
-    private String myUserId;
-    private String myFriendUserId;
+    private long myUserId;
+    private long myFriendUserId;
 
     @Id
     @Column(name = "id")
@@ -29,21 +29,21 @@ public class MyFriendsEntity {
 
     @Basic
     @Column(name = "my_user_id")
-    public String getMyUserId() {
+    public long getMyUserId() {
         return myUserId;
     }
 
-    public void setMyUserId(String myUserId) {
+    public void setMyUserId(long myUserId) {
         this.myUserId = myUserId;
     }
 
     @Basic
     @Column(name = "my_friend_user_id")
-    public String getMyFriendUserId() {
+    public long getMyFriendUserId() {
         return myFriendUserId;
     }
 
-    public void setMyFriendUserId(String myFriendUserId) {
+    public void setMyFriendUserId(long myFriendUserId) {
         this.myFriendUserId = myFriendUserId;
     }
 
@@ -52,7 +52,7 @@ public class MyFriendsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MyFriendsEntity that = (MyFriendsEntity) o;
-        return id == that.id && Objects.equals(myUserId, that.myUserId) && Objects.equals(myFriendUserId, that.myFriendUserId);
+        return id == that.id && myUserId == that.myUserId && myFriendUserId == that.myFriendUserId;
     }
 
     @Override

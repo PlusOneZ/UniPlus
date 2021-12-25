@@ -2,6 +2,9 @@ package cn.edu.tongji.uniplus.chatting.service;
 
 import cn.edu.tongji.uniplus.chatting.enums.LoginStatus;
 import cn.edu.tongji.uniplus.chatting.model.UserEntity;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * @author tangshuo
@@ -10,6 +13,16 @@ import cn.edu.tongji.uniplus.chatting.model.UserEntity;
  * @Description TODO
  * @createTime 2021年12月06日 13:58:00
  */
+@Service
 public interface LoginService {
-    public LoginStatus userLogin(String email,String password);
+    LoginStatus userLogin(UserEntity userEntity);
+
+    LoginStatus userLogin(String email,String password);
+
+    Long getUserIdByEmail(String email);
+
+    UserEntity getUserInfo(Long userId);
+
+    void changeUserName(String userEmail,String userName,Long id);
+
 }

@@ -7,6 +7,7 @@ import cn.edu.tongji.uniplus.chatting.service.SignupService;
 
 import javax.annotation.Resource;
 import com.github.yitter.idgen.YitIdHelper;
+import org.springframework.stereotype.Service;
 
 /**
  * @author tangshuo
@@ -15,9 +16,15 @@ import com.github.yitter.idgen.YitIdHelper;
  * @Description TODO
  * @createTime 2021年12月06日 14:15:00
  */
+@Service
 public class SignupServiceImpl implements SignupService {
     @Resource
     UserRepository userRepository;
+
+    @Override
+    public SignupStatus userSignup(UserEntity userEntity) {
+        return userSignup(userEntity.getUserName(),userEntity.getUserEmail(),userEntity.getPassword(),userEntity.getFaceImage(),userEntity.getNickname());
+    }
 
     /// TODO : USERNAME，EMAIL，PASSWORD（两次验证）需要在前端保证不为空
     @Override

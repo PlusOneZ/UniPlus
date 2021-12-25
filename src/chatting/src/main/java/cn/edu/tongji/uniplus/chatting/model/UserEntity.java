@@ -1,5 +1,8 @@
 package cn.edu.tongji.uniplus.chatting.model;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -12,6 +15,8 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "user", schema = "uniplus_chatting", catalog = "")
+@DynamicInsert
+@DynamicUpdate
 public class UserEntity {
     private long userId;
     private String userName;
