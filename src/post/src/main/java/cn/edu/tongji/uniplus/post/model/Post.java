@@ -1,11 +1,4 @@
-package cn.edu.tongji.uniplus.post.model;/*
-    @Created by Jary-Li on 2021/12/6. All rights reserved.
-    @Name: UniPlus
-    @Description：
-*/
-
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+package cn.edu.tongji.uniplus.post.model;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,14 +8,13 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@DynamicUpdate
-@DynamicInsert
 public class Post {
     private long postId;
     private Long postUserId;
     private Timestamp postTime;
     private String postContent;
     private String postTitle;
+    private int postAreaId;
     private int postLikeCount;
     private int postReplyCount;
 
@@ -77,6 +69,16 @@ public class Post {
     }
 
     @Basic
+    @Column(name = "post_area_id")
+    public int getPostAreaId() {
+        return postAreaId;
+    }
+
+    public void setPostAreaId(int postAreaId) {
+        this.postAreaId = postAreaId;
+    }
+
+    @Basic
     @Column(name = "post_like_count")
     public int getPostLikeCount() {
         return postLikeCount;
@@ -101,11 +103,11 @@ public class Post {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return postId == post.postId && postLikeCount == post.postLikeCount && postReplyCount == post.postReplyCount && Objects.equals(postUserId, post.postUserId) && Objects.equals(postTime, post.postTime) && Objects.equals(postContent, post.postContent) && Objects.equals(postTitle, post.postTitle);
+        return postId == post.postId && postAreaId == post.postAreaId && postLikeCount == post.postLikeCount && postReplyCount == post.postReplyCount && Objects.equals(postUserId, post.postUserId) && Objects.equals(postTime, post.postTime) && Objects.equals(postContent, post.postContent) && Objects.equals(postTitle, post.postTitle);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(postId, postUserId, postTime, postContent, postTitle, postLikeCount, postReplyCount);
+        return Objects.hash(postId, postUserId, postTime, postContent, postTitle, postAreaId, postLikeCount, postReplyCount);
     }
 }

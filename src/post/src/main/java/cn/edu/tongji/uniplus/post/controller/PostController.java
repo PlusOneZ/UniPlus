@@ -20,6 +20,11 @@ public class PostController {
         return ResponseEntity.status(200).body(postService.getPostById(postId));
     }
 
+    @GetMapping("/area/{areaId}")
+    public ResponseEntity<List<Post>> getPostsByAreaId(@PathVariable("areaId") Integer areaId) {
+        return ResponseEntity.status(200).body(postService.getPostsByAreaId(areaId));
+    }
+
     // 发帖
     @PostMapping()
     public ResponseEntity<String> pushNewPost(@RequestBody Post post) {

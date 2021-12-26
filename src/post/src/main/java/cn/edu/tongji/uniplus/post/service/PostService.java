@@ -106,4 +106,9 @@ public class PostService {
     public Post getPostById(Long postId) {
         return postRepository.findByPostId(postId);
     }
+
+    // 返回某个分区的所有帖子
+    public List<Post> getPostsByAreaId(Integer areaId) {
+        return postRepository.findPostsByPostAreaId(areaId);
+    }
 }

@@ -1,15 +1,10 @@
 package cn.edu.tongji.uniplus.post.model;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "post_user", schema = "uniplus_post", catalog = "")
-@DynamicUpdate
-@DynamicInsert
 public class PostUser {
     private long postUserId;
     private String userNickName;

@@ -1,16 +1,11 @@
 package cn.edu.tongji.uniplus.post.model;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "post_user_like_reply", schema = "uniplus_post", catalog = "")
 @IdClass(PostUserLikeReplyPK.class)
-@DynamicUpdate
-@DynamicInsert
 public class PostUserLikeReply {
     private long replyLikeReplyId;
     private long replyLikeUserId;
