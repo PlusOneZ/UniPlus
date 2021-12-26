@@ -1,10 +1,15 @@
 package cn.edu.tongji.uniplus.post.model;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@DynamicUpdate
+@DynamicInsert
 @Table(name = "post_reply", schema = "uniplus_post", catalog = "")
 public class PostReply {
     private long replyId;

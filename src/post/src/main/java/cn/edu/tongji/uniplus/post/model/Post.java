@@ -1,5 +1,8 @@
 package cn.edu.tongji.uniplus.post.model;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +11,8 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@DynamicUpdate
+@DynamicInsert
 public class Post {
     private long postId;
     private Long postUserId;
