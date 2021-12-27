@@ -1,2 +1,4 @@
 .idea
 src/apollo-server/node_modules/
+
+*.jar
