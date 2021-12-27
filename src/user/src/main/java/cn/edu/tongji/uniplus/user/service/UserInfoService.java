@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public interface UserInfoService {
     UserEntity getUserInfo(Long userId); // 获取用户个人信息
 
-    UserEntity updateUserInfo(Long userId, UserEntity newUserInfo); //更新用户个人信息
+    void updateUserInfo(Long userId, UserEntity newUserInfo); //更新用户个人信息
 
     void deleteUserInfo(Long userId); //用户注销
 }

@@ -27,12 +27,12 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public UserEntity updateUserInfo(Long userId, UserEntity newUserInfo) {
+    public void updateUserInfo(Long userId, UserEntity newUserInfo) {
         UserEntity before = userRepository.findByUserId(userId);
         if (newUserInfo != null) {
             JpaUtil.copyNotNullProperties(newUserInfo, before);
+            System.out.println(before);
             userRepository.save(before);
         }
-        return null;
     }
 }

@@ -101,4 +101,14 @@ public class PostService {
     public List<PostUserLikeReply> getUserLikeReplyListByUserId(Long userId) {
         return postUserLikeReplyRepository.findPostUserLikePostsByReplyLikeReplyId(userId);
     }
+
+    //根据ID找到帖子
+    public Post getPostById(Long postId) {
+        return postRepository.findByPostId(postId);
+    }
+
+    // 返回某个分区的所有帖子
+    public List<Post> getPostsByAreaId(Integer areaId) {
+        return postRepository.findPostsByPostAreaId(areaId);
+    }
 }

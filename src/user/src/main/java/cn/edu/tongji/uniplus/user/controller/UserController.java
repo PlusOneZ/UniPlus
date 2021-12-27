@@ -39,8 +39,9 @@ public class UserController {
 
     @PutMapping("/{userId}")
     public ResponseEntity<String> updateUserInfoByUserId(@PathVariable("userId") Long userId, @RequestBody UserEntity newUserInfo) {
-        if (StpUtil.getLoginId() != userId)
-            return ResponseEntity.status(401).body("您无权修改其他用户的信息！");
+//        if (StpUtil.getLoginId() != userId)
+//            return ResponseEntity.status(401).body("您无权修改其他用户的信息！");
+        newUserInfo.setUserId(userId);
         userInfoService.updateUserInfo(userId, newUserInfo);
         return ResponseEntity.status(200).body("修改用户信息成功！");
     }
