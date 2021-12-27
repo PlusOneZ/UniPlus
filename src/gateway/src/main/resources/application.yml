@@ -28,6 +28,10 @@ spring:
           uri: lb://userService     # Use this pattern: lb://<service-name-of-eureka>
           predicates:                  # Pattern /api/{segment}/<locator-of-your-apis>/**, locator 请见飞书文档
             - Path=/api/{segment}/user/**, /sso/**
+        - id: post-service
+          uri: lb://post-service
+          predicates: # Pattern /api/{segment}/<locator-of-your-apis>/**, locator 请见飞书文档
+            - Path=/api/{segment}/post/**, /sso/**
 
   application:
     name: GATEWAY
