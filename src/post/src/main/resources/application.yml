@@ -1,6 +1,6 @@
 spring:
   application:
-    name: POST_SERVICE
+    name: post-service
 
 server:
   port: 8083

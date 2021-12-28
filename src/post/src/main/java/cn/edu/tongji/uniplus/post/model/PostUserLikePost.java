@@ -8,10 +8,10 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "post_user_like_post", schema = "uniplus_post", catalog = "")
-@IdClass(PostUserLikePostPK.class)
 @DynamicUpdate
 @DynamicInsert
+@Table(name = "post_user_like_post", schema = "uniplus_post", catalog = "")
+@IdClass(PostUserLikePostPK.class)
 public class PostUserLikePost {
     private long postLikePostId;
     private long postLikeUserId;

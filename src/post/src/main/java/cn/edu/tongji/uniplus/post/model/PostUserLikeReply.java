@@ -7,10 +7,10 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "post_user_like_reply", schema = "uniplus_post", catalog = "")
-@IdClass(PostUserLikeReplyPK.class)
 @DynamicUpdate
 @DynamicInsert
+@Table(name = "post_user_like_reply", schema = "uniplus_post", catalog = "")
+@IdClass(PostUserLikeReplyPK.class)
 public class PostUserLikeReply {
     private long replyLikeReplyId;
     private long replyLikeUserId;

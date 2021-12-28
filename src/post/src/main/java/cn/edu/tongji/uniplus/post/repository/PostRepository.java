@@ -9,5 +9,10 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
     void deletePostByPostId(Long PostId);
+
+    Post findByPostId(Long PostId);
+
     List<Post> findPostsByPostUserId(Long userId);
+
+    List<Post> findPostsByPostAreaId(Integer areaId);
 }

@@ -7,9 +7,9 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "post_user", schema = "uniplus_post", catalog = "")
 @DynamicUpdate
 @DynamicInsert
+@Table(name = "post_user", schema = "uniplus_post", catalog = "")
 public class PostUser {
     private long postUserId;
     private String userNickName;
