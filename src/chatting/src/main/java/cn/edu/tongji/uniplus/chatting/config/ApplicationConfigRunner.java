@@ -4,15 +4,14 @@ import com.github.yitter.contract.IdGeneratorOptions;
 import com.github.yitter.idgen.YitIdHelper;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.stereotype.Component;
 
 /**
  * @author tangshuo
  * @version 1.0.0
- * @ClassName ApplicationConfigRunner.java
- * @Description TODO
- * @createTime 2021年12月06日 15:27:00
  */
+@EnableDiscoveryClient
 @Component
 public class ApplicationConfigRunner implements ApplicationRunner {
     @Override
