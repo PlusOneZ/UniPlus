@@ -5,6 +5,6 @@ VOLUME /jenkins/github/Uniplus/user/target
 # 复制文件到容器
 ADD user.jar /user.jar
 # 声明需要暴露的端口
-EXPOSE 8080
+EXPOSE 9000
 # 配置容器启动后执行的命令
 ENTRYPOINT ["java","-jar","/user.jar"]
