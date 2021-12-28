@@ -5,6 +5,7 @@ const typeDefs = gql`
     "Query to get tracks array for the homepage grid"
     tracksForHome: [Track!]!
     track(id: ID!): Track
+    user(id: ID!): User
   }
   
   type Mutation {
@@ -55,6 +56,28 @@ const typeDefs = gql`
     name: String!
     "Author's profile picture"
     photo: String
+  }
+  
+  "Uniplus User"
+  type User {
+    "User' id"
+    id: ID!
+    "School id of student"
+    schoolId: String
+    "Nickname"
+    nickname: String
+    "11 digit phone"
+    phone: String
+    "User create time"
+    createTime: String
+    "Gender, 男 or 女"
+    gender: String
+    "Avatar link from OSS"
+    avatarLink: String
+    "Role id"
+    role: Int
+    "User's real name"
+    realName: String
   }
 `;
 

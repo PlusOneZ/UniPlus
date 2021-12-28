@@ -25,7 +25,7 @@ spring:
             allowCredentials: true
       routes:                          # Add your services here
         - id: user-ervice            # Only for identifying your rules
-          uri: lb://user-ervice     # Use this pattern: lb://<service-name-of-eureka>
+          uri: lb://user-service     # Use this pattern: lb://<service-name-of-eureka>
           predicates:                  # Pattern /api/{segment}/<locator-of-your-apis>/**, locator 请见飞书文档
             - Path=/api/{segment}/user/**, /sso/**
         - id: post-service
@@ -41,4 +41,8 @@ eureka:
     register-with-eureka: true #注册到Eureka的注册中心
     fetch-registry: true #获取注册实例列表
     service-url:
-      defaultZone: http://10.244.1.30:8761/eureka/ #配置注册中心地址
+      defaultZone: http://112.124.59.163:31011/eureka/ #配置注册中心地址
+
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}

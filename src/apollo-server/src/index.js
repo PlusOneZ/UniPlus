@@ -1,9 +1,9 @@
 const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
-const { registerWithEureka } = require('./eureka/eureka_client')
 
 const TrackAPI = require('./datasources/track-api');
+const UserAPI = require('./datasources/user-api')
 
 const server = new ApolloServer({
   typeDefs,
@@ -11,6 +11,7 @@ const server = new ApolloServer({
   dataSources: () => {
     return {
       trackAPI: new TrackAPI(),
+      userAPI: new UserAPI()
     };
   },
 });
@@ -23,9 +24,4 @@ server.listen().then(() => {
   `);
 });
 
-const client = registerWithEureka("apollo-server", 4000)
-
-setInterval(() => {
-  const gateway = client.getInstancesByAppId('GATEWAY');
-  console.log(gateway)
-}, 10000)
+let userAPI = new UserAPI()

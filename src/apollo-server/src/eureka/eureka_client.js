@@ -7,7 +7,7 @@ const eurekaPort = 31011;
 const hostName = (process.env.HOSTNAME || 'localhost')
 const ipAddr = ip.address();
 
-exports.registerWithEureka = function(appName, PORT) {
+registerWithEureka = function (appName, PORT) {
     const client = new Eureka({
         instance: {
             app: appName,
@@ -35,11 +35,9 @@ exports.registerWithEureka = function(appName, PORT) {
 
     client.logger.level('debug')
 
-    client.start( error => {
-        console.log(error || "user service registered")
+    client.start(error => {
+        console.log(error || "service registered")
     });
-
-
 
     function exitHandler(options, exitCode) {
         if (options.cleanup) {
@@ -59,6 +57,44 @@ exports.registerWithEureka = function(appName, PORT) {
         console.log("eureka host  " + eurekaHost);
     })
 
-    process.on('SIGINT', exitHandler.bind(null, {exit:true}));
+    process.on('SIGINT', exitHandler.bind(null, {exit: true}));
     return client
 };
+
+exports.registerWithEureka = registerWithEureka
+
+const client = registerWithEureka("apollo-server", 4000)
+
+exports.eurekaClient = client
+
+let gateway = {ip: null, observers: [] }
+let ownIp = null
+
+Object.defineProperty(gateway, "ip", {
+        configurable: false,
+        get: function () {
+            return ownIp;
+        },
+        set: function (value) {
+            // console.log("调用回调")
+            if (value) {
+                ownIp = value
+                for (let i = 0; i < gateway.observers.length; i++) {
+                    gateway.observers[i].setUrl(ownIp)
+                }
+            }
+        }
+    }
+);
+
+setInterval(() => {
+    let gatewayService = client.getInstancesByAppId('GATEWAY');
+    if (gatewayService[0].ipAddr) {
+        gateway.ip = "http://" + /*gatewayService[0].ipAddr*/ "112.124.59.163" + ":31012/"
+        console.log("成功获取ip: ", gateway.ip)
+    } else {
+        console.log("Didn't get gateway's ip address");
+    }
+}, 5000)
+
+exports.gateway = gateway

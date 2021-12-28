@@ -6,6 +6,22 @@ const resolvers = {
     },
     track: (_, { id }, { dataSources }) => {
       return dataSources.trackAPI.getTrack(id);
+    },
+    user: async (_, { id }, { dataSources }) => {
+      let temp = await dataSources.userAPI.getUser(id)
+      console.log(temp)
+      let user = {
+        id: temp.userId,
+        schoolId: temp.userSchoolId,
+        nickname: temp.userNickName,
+        phone: temp.userPhone,
+        createTime: temp.userCreateTime,
+        gender: temp.userGender ?  "女" : "男",
+        avatarLink: temp.userAvatarLink,
+        role: temp.userRole,
+        realName: temp.userRealName,
+      }
+      return user
     }
   },
 
