@@ -10,31 +10,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 /*
     模块和注释的事居然能解决了
  */
 @Api(tags = "用户评论")
 @RestController
-@RequestMapping("/api/v1/place-comment")
+@RequestMapping("/api/v1/place")
 public class PlaceCommentController {
     @Autowired
     private PlaceCommentService placeCommentService;
 
+
+    @GetMapping("")
+    public ResponseEntity<List<PlaceCommentEntity>> getPlaceComment() {
+        return ResponseEntity.status(200).body(placeCommentService.getAll());
+    }
 
     @ApiOperation("根据ID获取指定用户的所有评论")
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<PlaceCommentEntity>> getPlaceCommentByUserId(@PathVariable("userId") Long userId) {
         if (placeCommentService.findAllByUserId(userId) != null)
             return ResponseEntity.status(HttpStatus.OK).body(placeCommentService.findAllByUserId(userId));
-        else
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-    }
-
-    @ApiOperation("根据ID获取指定地点的所有评论")
-    @GetMapping("/place/{placeId}")
-    public ResponseEntity<List<PlaceCommentEntity>> getPlaceCommentByPlaceId(@PathVariable("placeId") Integer placeId) {
-        if (placeCommentService.findAllByPlaceId(placeId) != null)
-            return ResponseEntity.status(HttpStatus.OK).body(placeCommentService.findAllByPlaceId(placeId));
         else
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }

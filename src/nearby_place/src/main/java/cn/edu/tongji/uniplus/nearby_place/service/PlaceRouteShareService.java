@@ -4,8 +4,6 @@ import cn.edu.tongji.uniplus.nearby_place.model.PlaceRouteShareEntity;
 import cn.edu.tongji.uniplus.nearby_place.repository.PlaceRouteShareRepository;
 import cn.edu.tongji.uniplus.nearby_place.tool.JpaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.query.Jpa21Utils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
