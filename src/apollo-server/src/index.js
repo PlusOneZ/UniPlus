@@ -1,6 +1,7 @@
 const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
+const eureka_client = require('./eureka/eureka_client')
 
 const TrackAPI = require('./datasources/track-api');
 
@@ -21,3 +22,5 @@ server.listen().then(() => {
     📭  Query at https://studio.apollographql.com/dev
   `);
 });
+
+console.log(eureka_client)
