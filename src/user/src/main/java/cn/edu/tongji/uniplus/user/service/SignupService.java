@@ -27,9 +27,9 @@ public interface SignupService {
 
     IdVerificationResult idVerification(String base64img);
 
-    Long userSignup(Integer phoneCode, String phone, String password, String username);
+    Long userSignup(Integer phoneCode, String phone, String password, String username, String token);
 
-    Long userSignup(Integer phoneCode, String phone, String password, String username, Integer gender);
+    Long userSignup(Integer phoneCode, String phone, String password, String username, Integer gender, String token);
 
     void setUserGender(Long customerId, Integer gender);
 

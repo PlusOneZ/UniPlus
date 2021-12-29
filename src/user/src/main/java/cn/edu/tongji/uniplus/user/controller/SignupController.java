@@ -78,14 +78,14 @@ public class SignupController {
                     @ApiResponse(code = 403, message = "User Already Exist")
             }
     )
-    @PostMapping("customer")
+    @PostMapping("user")
     public ResponseEntity<HashMap<String, Object>> customerSignup(
             @ApiParam(value = "International Phone Code", defaultValue = "+86") @RequestBody UserSignupDTO userSignupDTO
     ) {
         if (!signupService.isPhoneValid(userSignupDTO.getPhone())) {
             throw new DataFormatException();
         }
-        Long id = signupService.userSignup(userSignupDTO.getPhoneCode(), userSignupDTO.getPhone(), userSignupDTO.getPassword(), userSignupDTO.getUsername());
+        Long id = signupService.userSignup(userSignupDTO.getPhoneCode(), userSignupDTO.getPhone(), userSignupDTO.getPassword(), userSignupDTO.getUsername(), userSignupDTO.getToken());
 
         HashMap<String, Object> retMap = new HashMap<String, Object>();
         retMap.put("registerState", true);
