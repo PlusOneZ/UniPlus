@@ -1,7 +1,7 @@
 # 基于哪个镜像
 FROM openjdk:11
 # 将本地文件夹挂载到当前容器
-VOLUME /jenkins/github/Uniplus/post/target
+VOLUME /var/lib/jenkins/workspace/uniplus_all/src/post/target
 # 复制文件到容器
 ADD post.jar /post.jar
 # 声明需要暴露的端口
