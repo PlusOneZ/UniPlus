@@ -1,5 +1,6 @@
 package cn.edu.tongji.uniplus.carpooling.util;
 
+import cn.edu.tongji.uniplus.carpooling.config.NeteaseConfig;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -14,7 +15,10 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import javax.annotation.Resource;
+import javax.crypto.spec.ChaCha20ParameterSpec;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,14 +30,19 @@ import java.util.List;
  * @Description TODO
  * @createTime 2021年12月29日 17:39:00
  */
+
 public class RequestUtil {
-    private static final String APP_KEY = "cc0b4637976cccd5cb54c95758007141";//网易云信分配的账号
-    private static final String APP_SECRET = "099c4e10f454";//网易云信分配的密钥
-    private static final String NONCE = "123456";//随机数
+    @Resource
+    NeteaseConfig neteaseConfig;
+
+    private final String APP_KEY = neteaseConfig.getAppKey();
+    private final String APP_SECRET = neteaseConfig.getAppSecret();
+    private final String NONCE = neteaseConfig.getNonce();
 
     public static void main(String[] args) throws Exception {
+        System.out.println();
         // 创建云信id
-        createAccid("https://api.netease.im/nimserver/user/create.action", "034", "测试");
+        //createAccid("https://api.netease.im/nimserver/user/create.action", "034", "测试");
         // 发送普通消息
         // sendMessage("https://api.netease.im/nimserver/msg/sendMsg.action","liuxuanlin","0","lin","0","{\"msg\":\"测试测试\"}",null,"","","");
         // 批量发送消息
@@ -48,7 +57,7 @@ public class RequestUtil {
      * @update_author
      * @updateTime 2021/12/29 5:45 下午
      */
-    public static String createAccid(String url, String accid, String name) throws IOException {
+    public String createAccid(String url, String accid, String name) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost post = new HttpPost(url);
         String curTime = String.valueOf((new Date().getTime() / 1000L));
@@ -75,7 +84,83 @@ public class RequestUtil {
         return token;
     }
 
-    public static void sendMessage(String url, String from, String ope, String to, String type, String body, String option, String pushcontent, String payload, String ext) throws IOException {
+    public String creatOrderGroup(String name,String owner,String msg) throws IOException {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpPost post = new HttpPost("https://api.netease.im/nimserver/team/create.action");
+        String curTime = String.valueOf((new Date().getTime() / 1000L));
+        String checkSum = CheckSumBuilder.getCheckSum(APP_SECRET, NONCE, curTime);
+        //设置请求的header
+        post.addHeader("AppKey", APP_KEY);
+        post.addHeader("Nonce", NONCE);
+        post.addHeader("CurTime", curTime);
+        post.addHeader("CheckSum", checkSum);
+        post.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+        //设置请求参数
+        List<String> memberIds = new ArrayList<>();
+        JSONArray jsonArray = JSONArray.parseArray(JSON.toJSONString(memberIds));
+        List<NameValuePair> nameValuePairs = new ArrayList<>();
+        nameValuePairs.add(new BasicNameValuePair("tname", name));
+        nameValuePairs.add(new BasicNameValuePair("owner", owner));
+        nameValuePairs.add(new BasicNameValuePair("members", jsonArray.toJSONString()));
+        nameValuePairs.add(new BasicNameValuePair("msg",msg));
+        nameValuePairs.add(new BasicNameValuePair("magree","0"));
+        nameValuePairs.add(new BasicNameValuePair("joinmode","0"));
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
+        //执行请求
+        HttpResponse response = httpclient.execute(post);
+        String orderId = "";
+        return orderId;
+    }
+
+    public Boolean invite2Group(String orderId,String owner,String msg,String memberId) throws IOException {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpPost post = new HttpPost("https://api.netease.im/nimserver/team/create.action");
+        String curTime = String.valueOf((new Date().getTime() / 1000L));
+        String checkSum = CheckSumBuilder.getCheckSum(APP_SECRET, NONCE, curTime);
+        //设置请求的header
+        post.addHeader("AppKey", APP_KEY);
+        post.addHeader("Nonce", NONCE);
+        post.addHeader("CurTime", curTime);
+        post.addHeader("CheckSum", checkSum);
+        post.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+        //设置请求参数
+        List<String> memberIds = new ArrayList<>();
+        memberIds.add(memberId);
+        JSONArray jsonArray = JSONArray.parseArray(JSON.toJSONString(memberIds));
+        List<NameValuePair> nameValuePairs = new ArrayList<>();
+        nameValuePairs.add(new BasicNameValuePair("tid", orderId));
+        nameValuePairs.add(new BasicNameValuePair("owner", owner));
+        nameValuePairs.add(new BasicNameValuePair("members", jsonArray.toJSONString()));
+        nameValuePairs.add(new BasicNameValuePair("msg",msg));
+        nameValuePairs.add(new BasicNameValuePair("magree","0"));
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
+        //执行请求
+        HttpResponse response = httpclient.execute(post);
+        return true;
+    }
+
+    public Boolean dismissGroup(String orderId,String owner) throws IOException {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpPost post = new HttpPost("https://api.netease.im/nimserver/team/create.action");
+        String curTime = String.valueOf((new Date().getTime() / 1000L));
+        String checkSum = CheckSumBuilder.getCheckSum(APP_SECRET, NONCE, curTime);
+        //设置请求的header
+        post.addHeader("AppKey", APP_KEY);
+        post.addHeader("Nonce", NONCE);
+        post.addHeader("CurTime", curTime);
+        post.addHeader("CheckSum", checkSum);
+        post.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+        //设置请求参数
+        List<NameValuePair> nameValuePairs = new ArrayList<>();
+        nameValuePairs.add(new BasicNameValuePair("tid", orderId));
+        nameValuePairs.add(new BasicNameValuePair("owner", owner));
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
+        //执行请求
+        HttpResponse response = httpclient.execute(post);
+        return true;
+    }
+
+    public void sendMessage(String url, String from, String ope, String to, String type, String body, String option, String pushcontent, String payload, String ext) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost post = new HttpPost(url);
         String curTime = String.valueOf((new Date().getTime() / 1000L));
@@ -102,11 +187,9 @@ public class RequestUtil {
         //执行请求
         HttpResponse response = httpclient.execute(post);
         // 提取Token
-
-
     }
 
-    public static void sendBatchMessage(String url, String fromAccid, String toAccids, String type, String body, String option, String pushcontent, String payload, String ext) throws IOException {
+    public void sendBatchMessage(String url, String fromAccid, String toAccids, String type, String body, String option, String pushcontent, String payload, String ext) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost post = new HttpPost(url);
         String curTime = String.valueOf((new Date().getTime() / 1000L));
@@ -134,5 +217,7 @@ public class RequestUtil {
         // 执行请求
         System.out.println(EntityUtils.toString(response.getEntity(), "utf-8") + "\n");
     }
+
+
 
 }

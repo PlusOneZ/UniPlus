@@ -2,6 +2,8 @@ package cn.edu.tongji.uniplus.carpooling.service;
 
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+
 /**
  * @author tangshuo
  * @version 1.0.0
@@ -10,6 +12,11 @@ import org.springframework.stereotype.Service;
  * @createTime 2021年12月29日 17:37:00
  */
 @Service
-public class OrderService {
+public interface OrderService {
 
+    boolean createOrder(String orderName, Long ownerId, Integer price) throws IOException;
+
+    boolean invite2Order(String orderId, Long memberId) throws IOException;
+
+    boolean quiteOrder(String orderId) throws IOException;
 }
