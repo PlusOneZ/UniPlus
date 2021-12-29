@@ -85,7 +85,12 @@ public class SignupController {
         if (!signupService.isPhoneValid(userSignupDTO.getPhone())) {
             throw new DataFormatException();
         }
-        Long id = signupService.userSignup(userSignupDTO.getPhoneCode(), userSignupDTO.getPhone(), userSignupDTO.getPassword(), userSignupDTO.getUsername(), userSignupDTO.getToken());
+        Long id = signupService.userSignup(
+                userSignupDTO.getPhoneCode(),
+                userSignupDTO.getPhone(),
+                userSignupDTO.getPassword(),
+                userSignupDTO.getUsername()
+        );
 
         HashMap<String, Object> retMap = new HashMap<String, Object>();
         retMap.put("registerState", true);

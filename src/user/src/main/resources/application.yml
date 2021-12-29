@@ -43,7 +43,7 @@ spring:
     password: ENC(uvFPbhcKZRa1IfScG7qz3iUMvjjwHF2M)
 
   rabbitmq:
-    host: localhost
+    host: 81.68.233.64
     port: 5672
     username: ENC(t4zbGzLsn3Tb+gGqofPZ1w==)
     password: ENC(uvFPbhcKZRa1IfScG7qz3iUMvjjwHF2M)

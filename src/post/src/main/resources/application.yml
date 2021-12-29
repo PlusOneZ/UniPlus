@@ -2,6 +2,12 @@ spring:
   application:
     name: post-service
 
+  rabbitmq:
+    host: 81.68.233.64
+    port: 5672
+    username: ENC(t4zbGzLsn3Tb+gGqofPZ1w==)
+    password: ENC(uvFPbhcKZRa1IfScG7qz3iUMvjjwHF2M)
+
 server:
   port: 8083
 

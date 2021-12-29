@@ -31,7 +31,6 @@ public class UserEntity implements Serializable {
     private String userAvatarLink;
     private int userRole;
     private String userRealName;
-    private String userToken;
 
     @Id
     @Column(name = "user_id")
@@ -154,15 +153,5 @@ public class UserEntity implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(userId, userSchoolId, userNickName, userPassword, userPhone, userPhoneCode, userCreateTime, userGender, userAvatarLink, userRole, userRealName);
-    }
-
-    @Basic
-    @Column(name = "user_token")
-    public String getUserToken() {
-        return userToken;
-    }
-
-    public void setUserToken(String userToken) {
-        this.userToken = userToken;
     }
 }

@@ -16,7 +16,7 @@ import java.util.Map;
  */
 
 @Component
-@RabbitListener(queues = "UserRegisterQueue")
+@RabbitListener(queues = "user.fanout.good-info")
 public class UserReceiver {
 
     @Resource

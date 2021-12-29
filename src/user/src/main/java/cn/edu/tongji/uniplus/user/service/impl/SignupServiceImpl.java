@@ -11,8 +11,8 @@ import cn.edu.tongji.uniplus.user.service.SignupService;
 import cn.edu.tongji.uniplus.user.service.exception.DataFormatException;
 import cn.edu.tongji.uniplus.user.service.exception.UserAlreadyExistsException;
 import cn.edu.tongji.uniplus.user.service.exception.UserNotExistException;
+import cn.edu.tongji.uniplus.user.service.message.UserFanoutMessage;
 import com.github.yitter.idgen.YitIdHelper;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -33,13 +33,13 @@ public class SignupServiceImpl implements SignupService {
     UserRepository userRepository;
 
     @Resource
-    RabbitTemplate rabbitTemplate;
-
-    @Resource
     UserResidentInformationRepository userResidentInformationRepository;
 
     @Resource
     IdVerificationService idVerificationService;
+
+    @Resource
+    UserFanoutMessage userFanoutMessage;
 
     private static final int CN_PHONE_LENGTH = 11;
 
@@ -87,12 +87,12 @@ public class SignupServiceImpl implements SignupService {
     }
 
     @Override
-    public Long userSignup(Integer phoneCode, String phone, String password, String username, String token) {
-        return userSignup(phoneCode, phone, password, username, null, token);
+    public Long userSignup(Integer phoneCode, String phone, String password, String username) {
+        return userSignup(phoneCode, phone, password, username, null);
     }
 
     @Override
-    public Long userSignup(Integer phoneCode, String phone, String password, String username, @Nullable Integer gender, String token) {
+    public Long userSignup(Integer phoneCode, String phone, String password, String username, @Nullable Integer gender) {
         if (!checkPhoneAvailable(phone)) {
             // 已经有这个用户了
             throw new UserAlreadyExistsException();
@@ -115,14 +115,11 @@ public class SignupServiceImpl implements SignupService {
         user.setUserNickName(username);
         user.setUserPhone(phone);
         user.setUserPhoneCode(phoneCode);
-        user.setUserToken(token);
         if (gender != null)
             user.setUserGender(gender);
 
-        UserForQueue forQueue = new UserForQueue(user.getUserId(), user.getUserNickName());
+        userFanoutMessage.sendUserToFanoutQueue(user);
         userRepository.save(user);
-
-        rabbitTemplate.convertAndSend("UserDirectExchange", "UserDirectRouting", forQueue.toMap());
 
         return user.getUserId();
     }
