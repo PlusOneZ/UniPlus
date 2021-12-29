@@ -68,7 +68,7 @@ const client = registerWithEureka("apollo-server", 4000)
 exports.eurekaClient = client
 
 let gateway = {ip: null, observers: [] }
-let ownIp = null
+let ownIp = "http://" + "112.124.59.163" + ":31012/"
 
 Object.defineProperty(gateway, "ip", {
         configurable: false,
@@ -91,7 +91,7 @@ setInterval(() => {
     let gatewayService = client.getInstancesByAppId('GATEWAY');
     if (gatewayService[0].ipAddr) {
         gateway.ip = "http://" + /*gatewayService[0].ipAddr*/ "112.124.59.163" + ":31012/"
-        console.log("成功获取ip: ", gateway.ip)
+        // console.log("成功获取ip: ", gateway.ip)
     } else {
         console.log("Didn't get gateway's ip address");
     }

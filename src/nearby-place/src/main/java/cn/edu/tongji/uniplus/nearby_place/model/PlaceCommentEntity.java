@@ -1,6 +1,7 @@
 package cn.edu.tongji.uniplus.nearby_place.model;
 
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -8,12 +9,13 @@ import java.util.Objects;
 
 @Entity
 @DynamicInsert
+@DynamicUpdate
 @Table(name = "place_comment", schema = "uniplus_nearby_place", catalog = "")
 public class PlaceCommentEntity {
     private long placeCommentId;
     private Timestamp placeCommentTime;
     private long placeCommentUser;
-    private int placeCommentOnPlace;
+    private String placeCommentOnPlace;
     private String placeCommentContent;
     private int commentRating;
 
@@ -49,11 +51,11 @@ public class PlaceCommentEntity {
 
     @Basic
     @Column(name = "place_comment_on_place")
-    public int getPlaceCommentOnPlace() {
+    public String getPlaceCommentOnPlace() {
         return placeCommentOnPlace;
     }
 
-    public void setPlaceCommentOnPlace(int placeCommentOnPlace) {
+    public void setPlaceCommentOnPlace(String placeCommentOnPlace) {
         this.placeCommentOnPlace = placeCommentOnPlace;
     }
 

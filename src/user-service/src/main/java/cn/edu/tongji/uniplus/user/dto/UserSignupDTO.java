@@ -14,4 +14,5 @@ public class UserSignupDTO {
     private String phone;
     private String password;
     private String username;
+    private String token;
 }

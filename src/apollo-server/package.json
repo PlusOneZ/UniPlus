@@ -4,7 +4,8 @@
   "description": "Apollo server for uniplus backend",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index"
+    "dev": "nodemon src/index",
+    "start": "node src/index"
   },
   "dependencies": {
     "apollo-datasource-rest": "^0.11.0",

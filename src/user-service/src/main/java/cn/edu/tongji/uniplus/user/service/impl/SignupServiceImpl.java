@@ -87,12 +87,12 @@ public class SignupServiceImpl implements SignupService {
     }
 
     @Override
-    public Long userSignup(Integer phoneCode, String phone, String password, String username) {
-        return userSignup(phoneCode, phone, password, username, null);
+    public Long userSignup(Integer phoneCode, String phone, String password, String username, String token) {
+        return userSignup(phoneCode, phone, password, username, null, token);
     }
 
     @Override
-    public Long userSignup(Integer phoneCode, String phone, String password, String username, @Nullable Integer gender) {
+    public Long userSignup(Integer phoneCode, String phone, String password, String username, @Nullable Integer gender, String token) {
         if (!checkPhoneAvailable(phone)) {
             // 已经有这个用户了
             throw new UserAlreadyExistsException();
@@ -115,6 +115,7 @@ public class SignupServiceImpl implements SignupService {
         user.setUserNickName(username);
         user.setUserPhone(phone);
         user.setUserPhoneCode(phoneCode);
+        user.setUserToken(token);
         if (gender != null)
             user.setUserGender(gender);
 

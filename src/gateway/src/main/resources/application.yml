@@ -31,7 +31,11 @@ spring:
         - id: post-service
           uri: lb://post-service
           predicates: # Pattern /api/{segment}/<locator-of-your-apis>/**, locator 请见飞书文档
-            - Path=/api/{segment}/post/**, /sso/**
+            - Path=/api/{segment}/post/**
+        - id: nearby-service
+          uri: lb://nearby-service
+          predicates: # Pattern /api/{segment}/<locator-of-your-apis>/**, locator 请见飞书文档
+            - Path=/api/{segment}/place/**, /api/{segment}/route/**
 
   application:
     name: gateway
@@ -46,3 +50,4 @@ eureka:
   instance:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
