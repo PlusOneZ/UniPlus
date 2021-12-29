@@ -23,7 +23,7 @@ public class SsoServerController {
     @Resource
     LoginService loginService;
 
-    @RequestMapping("/sso/request")
+    @RequestMapping("/sso/*")
     public Object ssoRequest() {
         return SaSsoHandle.serverRequest();
     }
@@ -33,11 +33,8 @@ public class SsoServerController {
      */
     @Autowired
     private void configSso(SaTokenConfig cfg) {
-        // TODO: Redirect to Login page in frontend
         cfg.sso.setNotLoginView(() -> {
-            String msg = "当前会话在SSO-Server端尚未登录，请先访问"
-                    + "<a href='/sso/doLogin?name=sa&pwd=123456' target='_blank'> doLogin登录 </a>"
-                    + "进行登录之后，刷新页面开始授权";
+            String msg = "not logged";
             return msg;
         });
 

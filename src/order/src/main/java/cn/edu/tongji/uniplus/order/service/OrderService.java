@@ -1,10 +1,8 @@
 package cn.edu.tongji.uniplus.order.service;
 
 import cn.edu.tongji.uniplus.order.model.Order;
-import cn.edu.tongji.uniplus.order.model.OrderDetail;
 import cn.edu.tongji.uniplus.order.model.StatusEnum;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -13,7 +11,7 @@ public interface OrderService {
 
     Order getOrderById(String id);
 
-    String createOrderForUser(List<OrderDetail> details, Long buyerId, Double discount);
+    String createOrderForUser(Long buyerId, Double discount);
 
     Order updateOrderStatus(String id, StatusEnum status);
 

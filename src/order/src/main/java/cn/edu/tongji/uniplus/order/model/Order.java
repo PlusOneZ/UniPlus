@@ -7,9 +7,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Order
@@ -31,7 +29,7 @@ public class Order {
     // buyer's id
     private Long buyerId;
     // total amount
-    private Double totalAmount;
+    private Double totalPrice;
     // discount amount
     private Double discountAmount;
     /**
@@ -53,5 +51,15 @@ public class Order {
     @DateTimeFormat (pattern= "yyyy-MM-dd HH:mm : ss")
     private Date modifiedTime;
 
-    private List<OrderDetail> orderDetails = new ArrayList<>();
+    // Goods id
+    private Long goodsId;
+    // Goods name
+    private String goodsName;
+    // thumbnail photo
+    private String photoUrl;
+    // buying amount
+    private Integer amount;
+    // unit price
+    private Double price;
+
 }
