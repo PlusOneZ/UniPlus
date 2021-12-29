@@ -6,6 +6,7 @@ package cn.edu.tongji.uniplus.good_information.model;/*
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +20,7 @@ public class GoodGoodEntity {
     private int goodStock;
     private String goodDescription;
     private int goodClassification;
+    private Timestamp goodCreateTime;
 
     @Id
     @Column(name = "good_id")
@@ -111,5 +113,15 @@ public class GoodGoodEntity {
     @Override
     public int hashCode() {
         return Objects.hash(goodId, goodTitle, goodCurrentPrice, goodOriginalPrice, goodSellUnit, goodStock, goodDescription, goodClassification);
+    }
+
+    @Basic
+    @Column(name = "good_create_time")
+    public Timestamp getGoodCreateTime() {
+        return goodCreateTime;
+    }
+
+    public void setGoodCreateTime(Timestamp goodCreateTime) {
+        this.goodCreateTime = goodCreateTime;
     }
 }
