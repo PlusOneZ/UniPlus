@@ -23,11 +23,9 @@ public class UserSyncServiceImpl implements UserSyncService {
     @Override
     public void addUser(Long userId, String nickName) {
         UserEntity user = new UserEntity();
-        user.setGoodUserId(userId);
-        user.setGoodUserNickname(nickName);
-
-        System.out.println("用户信息： " + user.getUserId() + " " + user.getUserNickname());
-
+        user.setUserId(userId);
+        user.setUserName(nickName);
+        System.out.println("用户信息： " + user.getUserId() + " " + user.getUserName());
         userRepository.save(user);
     }
 
