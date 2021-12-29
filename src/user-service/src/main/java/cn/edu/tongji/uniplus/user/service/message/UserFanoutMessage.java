@@ -21,7 +21,7 @@ public class UserFanoutMessage {
 
     public void sendUserToFanoutQueue(UserEntity user) {
         UserForQueue forQueue = new UserForQueue(user.getUserId(), user.getUserNickName());
-        rabbitTemplate.convertAndSend("userFanoutExchange", forQueue.toMap());
+        rabbitTemplate.convertAndSend("userFanoutExchange", null,forQueue.toMap());
     }
 
 }

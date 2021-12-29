@@ -4,3 +4,24 @@ spring:
       host: 81.68.233.64:27017
       username: ENC(VHbykaq7S+W5WU53Yhe04w==)
       password: ENC(RvuRFfxhb/vL1SCDHts0ggHxpT9ofTM+)
+
+  application:
+    name: order-service
+
+  rabbitmq:
+    host: 81.68.233.64
+    port: 5672
+    username: ENC(t4zbGzLsn3Tb+gGqofPZ1w==)
+    password: ENC(uvFPbhcKZRa1IfScG7qz3iUMvjjwHF2M)
+
+eureka:
+  client:
+    register-with-eureka: true #注册到Eureka的注册中心
+    fetch-registry: true #获取注册实例列表
+    service-url:
+      #112.124.59.163:31011
+      defaultZone: http://112.124.59.163:31011/eureka/ #配置注册中心地址
+
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}

@@ -29,13 +29,13 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    public Queue queueUserChatting() {
-        return new Queue("user.fanout.chatting");
+    public Queue queueUserPooling() {
+        return new Queue("user.fanout.carpooling");
     }
 
     @Bean
     public FanoutExchange userFanoutExchange() {
-        return new FanoutExchange("userFanoutExchange");
+        return new FanoutExchange("userFanoutExchange", true, false);
     }
 
     @Bean
@@ -55,6 +55,6 @@ public class RabbitMqConfig {
 
     @Bean
     Binding bindingExchangeUserChatting() {
-        return BindingBuilder.bind(queueUserChatting()).to(userFanoutExchange());
+        return BindingBuilder.bind(queueUserPooling()).to(userFanoutExchange());
     }
 }

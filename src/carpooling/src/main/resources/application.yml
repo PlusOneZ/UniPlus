@@ -1,6 +1,19 @@
+
 spring:
+
   application:
-    name: chatting-service #服务名称
+    name: user-service #服务名称
+
+  # Redis配置 （SSO模式一和模式二使用Redis来同步会话）
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 1
+    # Redis服务器地址
+    host: 81.68.233.64
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password: ENC(uvFPbhcKZRa1IfScG7qz3iUMvjjwHF2M)
 
   rabbitmq:
     host: 81.68.233.64
@@ -8,12 +21,15 @@ spring:
     username: ENC(t4zbGzLsn3Tb+gGqofPZ1w==)
     password: ENC(uvFPbhcKZRa1IfScG7qz3iUMvjjwHF2M)
 
+
 eureka:
   client:
     register-with-eureka: true #注册到Eureka的注册中心
     fetch-registry: true #获取注册实例列表
     service-url:
+      #112.124.59.163:31011
       defaultZone: http://112.124.59.163:31011/eureka/ #配置注册中心地址
+
   instance:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
