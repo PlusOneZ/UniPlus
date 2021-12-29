@@ -3,6 +3,7 @@ package cn.edu.tongji.uniplus.good_information.service;
 import cn.edu.tongji.uniplus.good_information.model.GoodGoodEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -18,6 +19,10 @@ public interface GoodsService {
 
     List<GoodGoodEntity> getGoodsList(int page, int pageSize);
 
-    Boolean addGoods(String title, Double price, Double originalPrice, String unit, Integer stock, String desc, Integer classification);
+    Boolean addGoods(String title, BigDecimal price, BigDecimal originalPrice, String unit, Integer stock, String desc, Integer classification);
+
+    String uploadGoodImage(String base64, String fileName);
+
+
 
 }
