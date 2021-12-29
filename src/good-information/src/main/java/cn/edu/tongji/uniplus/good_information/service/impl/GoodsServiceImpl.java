@@ -4,6 +4,7 @@ import cn.edu.tongji.uniplus.good_information.model.GoodGoodEntity;
 import cn.edu.tongji.uniplus.good_information.repository.GoodsRepository;
 import cn.edu.tongji.uniplus.good_information.service.GoodsService;
 import cn.edu.tongji.uniplus.good_information.service.exception.GoodsNotExistException;
+import cn.edu.tongji.uniplus.good_information.util.OSSManageUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Resource
     GoodsRepository goodsRepository;
+
+    @Resource
+    OSSManageUtils ossManageUtils;
 
     @Override
     public GoodGoodEntity getGoodById(Long id) {
