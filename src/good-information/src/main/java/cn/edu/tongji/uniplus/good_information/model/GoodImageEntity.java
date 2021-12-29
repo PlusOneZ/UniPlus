@@ -59,4 +59,3 @@ public class GoodImageEntity {
         return Objects.hash(goodId, goodImageIndex, goodImageUrl);
     }
 }
->>>>>>> 9258dfe90caae47c6bc107534966b133717ac90f
