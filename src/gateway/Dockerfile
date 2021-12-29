@@ -1,7 +1,7 @@
 # 基于哪个镜像
 FROM openjdk:11
 # 将本地文件夹挂载到当前容器
-VOLUME /jenkins/github/Uniplus/gateway/target
+VOLUME /var/lib/jenkins/workspace/uniplus_all/src/gateway/target
 # 复制文件到容器
 ADD gateway.jar /gateway.jar
 # 声明需要暴露的端口
