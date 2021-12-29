@@ -2,3 +2,5 @@
 src/apollo-server/node_modules/
 
 *.jar
+
+**/.DS_Store
