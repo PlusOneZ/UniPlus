@@ -1,3 +1,4 @@
+
 package cn.edu.tongji.uniplus.good_information.model;
 
 import javax.persistence.Column;

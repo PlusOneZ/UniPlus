@@ -1,15 +1,14 @@
 package cn.edu.tongji.uniplus.good_information.model;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.Objects;
 
-/**
- * GoodImageEntity
- *
- * @author 卓正一
- * @since 2021/12/30 6:21 AM
- */
 @Entity
+@DynamicUpdate
+@DynamicInsert
 @Table(name = "good_image", schema = "uniplus_good_information", catalog = "")
 @IdClass(GoodImageEntityPK.class)
 public class GoodImageEntity {
@@ -60,3 +59,4 @@ public class GoodImageEntity {
         return Objects.hash(goodId, goodImageIndex, goodImageUrl);
     }
 }
+>>>>>>> 9258dfe90caae47c6bc107534966b133717ac90f

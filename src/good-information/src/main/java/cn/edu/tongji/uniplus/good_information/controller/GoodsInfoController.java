@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * GoodsInfoController
  *
- * @author 卓正一
+ * @author 卓正一s
  * @since 2021/12/29 10:41 PM
  */
 @RestController
@@ -34,6 +35,12 @@ public class GoodsInfoController {
     // 增加 post api
     @PostMapping("")
     public ResponseEntity<Object> publishGood(@RequestBody GoodGoodEntity good) {
-        return null;
+        return ResponseEntity.status(200).body(goodsService.addGoods(good.getGoodTitle(), good.getGoodCurrentPrice(), good.getGoodOriginalPrice(),
+                good.getGoodSellUnit(), good.getGoodStock(), good.getGoodDescription(), good.getGoodClassification()));
+    }
+
+    @PostMapping("image")
+    public ResponseEntity<Object> uploadImage(@RequestBody String base64) {
+        return ResponseEntity.status(200).body(goodsService.uploadGoodImage(base64, UUID.randomUUID().toString().replaceAll("-", "")));
     }
 }
