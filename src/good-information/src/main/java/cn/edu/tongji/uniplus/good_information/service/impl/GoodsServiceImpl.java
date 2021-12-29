@@ -51,8 +51,8 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Boolean addGoods(
             String title,
-            Double price,
-            Double originalPrice,
+            BigDecimal price,
+            BigDecimal originalPrice,
             String unit,
             Integer stock,
             String desc,
@@ -60,8 +60,8 @@ public class GoodsServiceImpl implements GoodsService {
     ) {
         GoodGoodEntity good = new GoodGoodEntity();
         good.setGoodTitle(title);
-        good.setGoodCurrentPrice(new BigDecimal(price));
-        good.setGoodOriginalPrice(new BigDecimal(originalPrice));
+        good.setGoodCurrentPrice(price);
+        good.setGoodOriginalPrice(originalPrice);
         good.setGoodSellUnit(unit);
         good.setGoodStock(stock);
         good.setGoodDescription(desc);
@@ -73,5 +73,15 @@ public class GoodsServiceImpl implements GoodsService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public String uploadGoodImage(String base64, String fileName) {
+        try {
+            return ossManageUtils.base64UploadFile(base64, fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }
