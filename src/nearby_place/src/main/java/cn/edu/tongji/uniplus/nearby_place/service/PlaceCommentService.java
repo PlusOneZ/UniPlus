@@ -25,15 +25,6 @@ public class PlaceCommentService {
     public List<PlaceCommentEntity> findAllByUserId(Long userId) {
         return placeCommentRepository.findPlaceCommentEntitiesByPlaceCommentUser(userId);
     }
-
-    public List<PlaceCommentEntity> findAllByPlaceId(Integer placeId) {
-        return placeCommentRepository.findPlaceCommentEntitiesByPlaceCommentOnPlace(placeId);
-    }
-
-    public List<PlaceCommentEntity> findAllByRate(Integer Rate) {
-        return placeCommentRepository.findPlaceCommentEntitiesByPlaceCommentOnPlace(Rate);
-    }
-
     /*
         用户需要修改评论吗？需要删除评论吗？
         我觉得删是可以删，但是只能删自己的评论,实际上肯定是点哪条删哪条
@@ -41,5 +32,11 @@ public class PlaceCommentService {
      */
     public void delete(Long commentId) {
         placeCommentRepository.deletePlaceCommentEntityByPlaceCommentId(commentId);
+    }
+    /*
+        获取所有评论
+     */
+    public List<PlaceCommentEntity> getAll(){
+        return placeCommentRepository.findAll();
     }
 }
