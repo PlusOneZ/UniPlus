@@ -1,5 +1,5 @@
 package
-        cn.edu.tongji.gohome.trade.utils;
+        cn.edu.tongji.uniplus.good_information.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

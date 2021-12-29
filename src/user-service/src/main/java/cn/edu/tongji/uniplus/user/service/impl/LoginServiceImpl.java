@@ -5,8 +5,10 @@ import cn.edu.tongji.uniplus.user.repository.UserRepository;
 import cn.edu.tongji.uniplus.user.service.LoginService;
 import cn.edu.tongji.uniplus.user.service.exception.UserNotExistException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 @Service
@@ -25,7 +27,7 @@ public class LoginServiceImpl implements LoginService {
         if (user.isEmpty()) {
             return LoginStatus.NoUser;
         } else {
-            if (user.get().getUserPassword().equals(password)) {
+            if (user.get().getUserPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes()))) {
                 return LoginStatus.Success;
             }
             return LoginStatus.IncorrectPassword;

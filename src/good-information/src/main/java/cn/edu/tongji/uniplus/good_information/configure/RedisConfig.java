@@ -1,5 +1,5 @@
 package
-        cn.edu.tongji.gohome.trade.config;
+        cn.edu.tongji.uniplus.good_information.configure;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

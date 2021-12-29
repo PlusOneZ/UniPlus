@@ -1,4 +1,4 @@
-package cn.edu.tongji.uniplus.user.config;
+package cn.edu.tongji.uniplus.good_information.configure;
 
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
@@ -14,47 +14,19 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMqConfig {
 
     @Bean
-    public Queue queueUserGoodInformation() {
-        return new Queue("user.fanout.good-info");
+    public Queue queuePlaceOrder() {
+        return new Queue("good.order.placement");
     }
 
     @Bean
-    public Queue queueUserNearby() {
-        return new Queue("user.fanout.nearby");
-    }
-
-    @Bean
-    public Queue queueUserPost() {
-        return new Queue("user.fanout.post");
-    }
-
-    @Bean
-    public Queue queueUserPooling() {
-        return new Queue("user.fanout.carpooling");
-    }
-
-    @Bean
-    public FanoutExchange userFanoutExchange() {
-        return new FanoutExchange("userFanoutExchange", true, false);
+    public DirectExchange orderPlacementDirectExchange() {
+        return new DirectExchange("orderPlacementDirect", true, false);
     }
 
     @Bean
     Binding bindingExchangeUserGoodInformation() {
-        return BindingBuilder.bind(queueUserGoodInformation()).to(userFanoutExchange());
+        String ORDER_PLACE_ROUTING_KEY = "orderPlacementRouting";
+        return BindingBuilder.bind(queuePlaceOrder()).to(orderPlacementDirectExchange()).with(ORDER_PLACE_ROUTING_KEY);
     }
 
-    @Bean
-    Binding bindingExchangeUserNearby() {
-        return BindingBuilder.bind(queueUserNearby()).to(userFanoutExchange());
-    }
-
-    @Bean
-    Binding bindingExchangeUserPost() {
-        return BindingBuilder.bind(queueUserPost()).to(userFanoutExchange());
-    }
-
-    @Bean
-    Binding bindingExchangeUserChatting() {
-        return BindingBuilder.bind(queueUserPooling()).to(userFanoutExchange());
-    }
 }

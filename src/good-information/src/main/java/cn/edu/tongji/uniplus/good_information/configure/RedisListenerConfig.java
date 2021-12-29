@@ -1,5 +1,5 @@
 package
-        cn.edu.tongji.gohome.trade.config;
+        cn.edu.tongji.uniplus.good_information.configure;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

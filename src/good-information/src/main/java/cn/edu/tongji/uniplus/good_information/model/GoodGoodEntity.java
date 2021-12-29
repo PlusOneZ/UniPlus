@@ -21,6 +21,7 @@ public class GoodGoodEntity {
     private String goodDescription;
     private int goodClassification;
     private Timestamp goodCreateTime;
+    private long goodOwnerId;
 
     @Id
     @Column(name = "good_id")
@@ -123,5 +124,15 @@ public class GoodGoodEntity {
 
     public void setGoodCreateTime(Timestamp goodCreateTime) {
         this.goodCreateTime = goodCreateTime;
+    }
+
+    @Basic
+    @Column(name = "good_owner_id")
+    public long getGoodOwnerId() {
+        return goodOwnerId;
+    }
+
+    public void setGoodOwnerId(long goodOwnerId) {
+        this.goodOwnerId = goodOwnerId;
     }
 }
