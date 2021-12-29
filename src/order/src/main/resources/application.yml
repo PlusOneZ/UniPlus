@@ -4,6 +4,7 @@ spring:
       host: 81.68.233.64:27017
       username: ENC(VHbykaq7S+W5WU53Yhe04w==)
       password: ENC(RvuRFfxhb/vL1SCDHts0ggHxpT9ofTM+)
+      database: uniplus
 
   application:
     name: order-service

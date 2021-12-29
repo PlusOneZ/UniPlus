@@ -1,6 +1,8 @@
 package cn.edu.tongji.uniplus.good_information.service.impl;
 
 import cn.edu.tongji.uniplus.good_information.model.GoodGoodEntity;
+import cn.edu.tongji.uniplus.good_information.model.GoodImageEntity;
+import cn.edu.tongji.uniplus.good_information.repository.GoodsImageRepository;
 import cn.edu.tongji.uniplus.good_information.repository.GoodsRepository;
 import cn.edu.tongji.uniplus.good_information.service.GoodsService;
 import cn.edu.tongji.uniplus.good_information.service.exception.GoodsNotExistException;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +29,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Resource
     GoodsRepository goodsRepository;
+
+    @Resource
+    GoodsImageRepository goodsImageRepository;
 
     @Resource
     OSSManageUtils ossManageUtils;
@@ -73,5 +79,15 @@ public class GoodsServiceImpl implements GoodsService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public List<String> getGoodsImages(Long goodsId) {
+        List<GoodImageEntity> images = goodsImageRepository.findAllByGoodIdOrderByGoodImageIndex(goodsId);
+        List<String> urls = new ArrayList<>();
+        for (GoodImageEntity image : images) {
+            urls.add(image.getGoodImageUrl());
+        }
+        return urls;
     }
 }

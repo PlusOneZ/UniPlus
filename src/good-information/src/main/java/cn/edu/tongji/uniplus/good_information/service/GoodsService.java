@@ -20,4 +20,5 @@ public interface GoodsService {
 
     Boolean addGoods(String title, Double price, Double originalPrice, String unit, Integer stock, String desc, Integer classification);
 
+    List<String> getGoodsImages(Long goodsId);
 }
