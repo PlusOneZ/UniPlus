@@ -9,10 +9,11 @@ import cn.edu.tongji.uniplus.good_information.service.exception.GoodsNotExistExc
 import cn.edu.tongji.uniplus.good_information.util.RedisUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * PlaceOrderServiceImpl
@@ -32,16 +33,15 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
     @Resource
     GoodsService goodsService;
 
+
     @Override
     public Boolean tryPlaceOrder(Long userId, Long goodId, int amount) {
         if (!checkGoodStock(goodId, amount)) {
             return false;
         }
         GoodGoodEntity good = goodRepository.findById(goodId).get();
-        // TODO: Add photo url
-        OrderPlacementEntity entity = new OrderPlacementEntity(good, userId, amount, "");
-
-        // redis
+        List<String> images = goodsService.getGoodsImages(goodId);
+        OrderPlacementEntity entity = new OrderPlacementEntity(good, userId, amount, images.size() > 0 ? images.get(0) : "");
 
         // rabbit
         rabbitTemplate.convertAndSend(
@@ -49,6 +49,8 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
                 "orderPlacementRouting",
                 entity.toMap()
         );
+        good.setGoodStock(good.getGoodStock() - amount);
+        goodRepository.save(good);
 
         return true;
     }
@@ -58,6 +60,18 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         Optional<GoodGoodEntity> good = goodRepository.findById(goodId);
         if (good.isPresent()) {
             return (good.get().getGoodStock() >= amount);
+        } else {
+            throw new GoodsNotExistException();
+        }
+    }
+
+    @Override
+    public void resumeStock(Long goodId, int amount) {
+        Optional<GoodGoodEntity> goodOptional = goodRepository.findById(goodId);
+        if (goodOptional.isPresent()) {
+            GoodGoodEntity good = goodOptional.get();
+            good.setGoodStock(good.getGoodStock() + amount);
+            goodRepository.save(good);
         } else {
             throw new GoodsNotExistException();
         }

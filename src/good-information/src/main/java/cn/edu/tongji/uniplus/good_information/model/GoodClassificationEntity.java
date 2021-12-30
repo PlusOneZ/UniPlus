@@ -1,14 +1,15 @@
 package cn.edu.tongji.uniplus.good_information.model;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * GoodClassificationEntity
+ *
+ * @author 卓正一
+ * @since 2021/12/30 6:21 AM
+ */
 @Entity
-@DynamicUpdate
-@DynamicInsert
 @Table(name = "good_classification", schema = "uniplus_good_information", catalog = "")
 public class GoodClassificationEntity {
     private int classificationId;

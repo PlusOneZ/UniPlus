@@ -5,9 +5,12 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Order
@@ -15,15 +18,12 @@ import java.util.Date;
  * @author 卓正一
  * @since 2021/12/26 2:49 AM
  */
-@Document
+@Document("order")
 @Data
 @NoArgsConstructor
 public class Order {
-    @Id
+    @MongoId
     private String id;
-    // order serial number
-    @Indexed(name = "indexed orderNo")
-    private String orderNo;
     // seller's id
     private Long sellerId;
     // buyer's id
@@ -62,4 +62,16 @@ public class Order {
     // unit price
     private Double price;
 
+    public Map<String, String> toMap() {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("goodsId", goodsId.toString());
+        map.put("goodsName", goodsName);
+        map.put("purchaseAmount", amount.toString());
+        map.put("price", price.toString());
+        map.put("photoUrl", photoUrl);
+        map.put("sellerId", sellerId.toString());
+        map.put("buyerId", buyerId.toString());
+        map.put("discountAmount", discountAmount.toString());
+        return map;
+    }
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Resource
     GoodsRepository goodsRepository;
+
+    @Resource
+    GoodsImageRepository goodsImageRepository;
 
     @Resource
     OSSManageUtils ossManageUtils;
@@ -85,6 +89,15 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public List<String> getGoodsImages(Long goodsId) {
+        List<GoodImageEntity> images = goodsImageRepository.findAllByGoodIdOrderByGoodImageIndex(goodsId);
+        List<String> urls = new ArrayList<>();
+        for (GoodImageEntity image : images) {
+            urls.add(image.getGoodImageUrl());
+        }
+        return urls;
+    }
+
     public String uploadGoodImage(String base64, String fileName) {
         try {
             return ossManageUtils.base64UploadFile(base64, fileName);

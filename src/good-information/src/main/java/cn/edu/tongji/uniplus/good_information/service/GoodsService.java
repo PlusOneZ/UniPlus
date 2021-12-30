@@ -25,4 +25,5 @@ public interface GoodsService {
 
     Boolean uploadImageToDB(Long goodId,Integer goodImageIndex, String goodImageUrl);
 
+    List<String> getGoodsImages(Long goodsId);
 }
