@@ -33,8 +33,6 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
     @Resource
     GoodsService goodsService;
 
-    @Resource
-    private RedisUtils redisUtils;
 
     @Override
     public Boolean tryPlaceOrder(Long userId, Long goodId, int amount) {
@@ -62,6 +60,18 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         Optional<GoodGoodEntity> good = goodRepository.findById(goodId);
         if (good.isPresent()) {
             return (good.get().getGoodStock() >= amount);
+        } else {
+            throw new GoodsNotExistException();
+        }
+    }
+
+    @Override
+    public void resumeStock(Long goodId, int amount) {
+        Optional<GoodGoodEntity> goodOptional = goodRepository.findById(goodId);
+        if (goodOptional.isPresent()) {
+            GoodGoodEntity good = goodOptional.get();
+            good.setGoodStock(good.getGoodStock() + amount);
+            goodRepository.save(good);
         } else {
             throw new GoodsNotExistException();
         }

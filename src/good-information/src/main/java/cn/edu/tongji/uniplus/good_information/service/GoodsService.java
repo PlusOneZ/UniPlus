@@ -19,11 +19,11 @@ public interface GoodsService {
 
     List<GoodGoodEntity> getGoodsList(int page, int pageSize);
 
-    Boolean addGoods(String title, BigDecimal price, BigDecimal originalPrice, String unit, Integer stock, String desc, Integer classification);
+    GoodGoodEntity addGoods(Long goodId,String title, BigDecimal price, BigDecimal originalPrice, String unit, Integer stock, String desc, Integer classification,Long ownerId);
 
     String uploadGoodImage(String base64, String fileName);
 
-
+    Boolean uploadImageToDB(Long goodId,Integer goodImageIndex, String goodImageUrl);
 
     List<String> getGoodsImages(Long goodsId);
 }

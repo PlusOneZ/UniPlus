@@ -9,4 +9,5 @@ public interface PlaceOrderService {
 
     Boolean checkGoodStock(Long goodId, int amount);
 
+    void resumeStock(Long goodId, int amount);
 }

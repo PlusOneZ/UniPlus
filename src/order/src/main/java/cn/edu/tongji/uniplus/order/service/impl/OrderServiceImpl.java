@@ -5,7 +5,9 @@ import cn.edu.tongji.uniplus.order.model.StatusEnum;
 import cn.edu.tongji.uniplus.order.payload.OrderPlacementEntity;
 import cn.edu.tongji.uniplus.order.repository.OrderRepository;
 import cn.edu.tongji.uniplus.order.service.OrderService;
+import cn.edu.tongji.uniplus.order.service.exception.OrderNotExistException;
 import cn.edu.tongji.uniplus.order.utils.RedisUtils;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -31,6 +33,9 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     OrderRepository orderRepository;
 
+    @Resource
+    RabbitTemplate rabbitTemplate;
+
     @Override
     public Order getOrderById(String id) {
         Optional<Order> orderMono = orderRepository.findById(id);
@@ -55,10 +60,26 @@ public class OrderServiceImpl implements OrderService {
 
         orderRepository.save(order);
 
-        System.out.println("Test mongo");
-        System.out.println(orderRepository.findById(order.getId()).get());
-
         redisUtils.set(uuid, orderRepository.findById(order.getId()).get(), 1L, TimeUnit.MINUTES);
+    }
+
+    @Override
+    public void cancelOrder(String id) {
+        Optional<Order> orderOptional = orderRepository.findById(id);
+        if (orderOptional.isPresent()) {
+            Order order = orderOptional.get();
+
+            rabbitTemplate.convertAndSend(
+                    "orderExpireDirect",
+                    "orderExpireRouting",
+                    order.toMap()
+            );
+
+            order.setStatus(StatusEnum.REVOKED.getCode());
+            orderRepository.save(order);
+        } else {
+            throw new OrderNotExistException();
+        }
     }
 
     @Override
