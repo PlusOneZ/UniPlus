@@ -1,5 +1,5 @@
 package
-        cn.edu.tongji.uniplus.good_information.configure;
+        cn.edu.tongji.uniplus.order.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
