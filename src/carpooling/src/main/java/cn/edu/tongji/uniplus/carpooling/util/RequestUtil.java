@@ -121,13 +121,17 @@ public class RequestUtil {
         //执行请求
         HttpResponse response = httpclient.execute(post);
         JSONObject object = JSONObject.parseObject(EntityUtils.toString(response.getEntity()));
-        String orderId = "";
-        return orderId;
+        int code = object.getInteger("code");
+        if(code == 200){
+            String orderId = object.getString("tid");
+            return orderId;
+        }
+        return "failed";
     }
 
     public Boolean invite2Group(String orderId,String owner,String msg,String memberId) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost post = new HttpPost("https://api.netease.im/nimserver/team/create.action");
+        HttpPost post = new HttpPost("https://api.netease.im/nimserver/team/add.action");
         String curTime = String.valueOf((new Date().getTime() / 1000L));
         String checkSum = CheckSumBuilder.getCheckSum(APP_SECRET, NONCE, curTime);
         //设置请求的header
@@ -149,12 +153,17 @@ public class RequestUtil {
         post.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
         //执行请求
         HttpResponse response = httpclient.execute(post);
-        return true;
+        JSONObject object = JSONObject.parseObject(EntityUtils.toString(response.getEntity()));
+        int code = object.getInteger("code");
+        if(code == 200){
+            return true;
+        }
+        return false;
     }
 
     public Boolean dismissGroup(String orderId,String owner) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost post = new HttpPost("https://api.netease.im/nimserver/team/create.action");
+        HttpPost post = new HttpPost("https://api.netease.im/nimserver/team/remove.action");
         String curTime = String.valueOf((new Date().getTime() / 1000L));
         String checkSum = CheckSumBuilder.getCheckSum(APP_SECRET, NONCE, curTime);
         //设置请求的header
@@ -170,7 +179,12 @@ public class RequestUtil {
         post.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
         //执行请求
         HttpResponse response = httpclient.execute(post);
-        return true;
+        JSONObject object = JSONObject.parseObject(EntityUtils.toString(response.getEntity()));
+        int code = object.getInteger("code");
+        if(code == 200){
+            return true;
+        }
+        return false;
     }
 
     public void sendMessage(String url, String from, String ope, String to, String type, String body, String option, String pushcontent, String payload, String ext) throws IOException {
@@ -200,6 +214,7 @@ public class RequestUtil {
         //执行请求
         HttpResponse response = httpclient.execute(post);
         // 提取Token
+
     }
 
     public void sendBatchMessage(String url, String fromAccid, String toAccids, String type, String body, String option, String pushcontent, String payload, String ext) throws IOException {
