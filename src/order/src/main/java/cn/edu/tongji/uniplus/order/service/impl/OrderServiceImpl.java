@@ -1,4 +1,4 @@
-package cn.edu.tongji.uniplus.order.receiver.impl;
+package cn.edu.tongji.uniplus.order.service.impl;
 
 import cn.edu.tongji.uniplus.order.model.Order;
 import cn.edu.tongji.uniplus.order.model.StatusEnum;
@@ -12,6 +12,9 @@ import reactor.core.publisher.Mono;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * OrderServiceImpl
@@ -30,13 +33,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getOrderById(String id) {
-        Mono<Order> orderMono = orderRepository.findById(id);
-        return orderMono.block();
+        Optional<Order> orderMono = orderRepository.findById(id);
+        return orderMono.get();
     }
 
     @Override
     public void createOrderFromPlacement(OrderPlacementEntity placement) {
         Order order = new Order();
+        String uuid = UUID.randomUUID().toString();
+        order.setId(uuid);
         order.setBuyerId(placement.getBuyerId());
         order.setSellerId(placement.getSellerId());
         order.setGoodsId(placement.getGoodsId());
@@ -50,7 +55,10 @@ public class OrderServiceImpl implements OrderService {
 
         orderRepository.save(order);
 
+        System.out.println("Test mongo");
+        System.out.println(orderRepository.findById(order.getId()).get());
 
+        redisUtils.set(uuid, orderRepository.findById(order.getId()).get(), 1L, TimeUnit.MINUTES);
     }
 
     @Override
