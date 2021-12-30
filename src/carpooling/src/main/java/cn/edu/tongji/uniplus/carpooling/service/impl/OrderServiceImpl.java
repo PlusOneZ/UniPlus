@@ -29,10 +29,11 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     OrderMemberRepository orderMemberRepository;
 
+    @Resource
+    RequestUtil requestUtil;
 
     @Override
     public boolean createOrder(String orderName,Long ownerId,Integer price) throws IOException {
-        RequestUtil requestUtil = new RequestUtil();
         String msg = "欢迎加入" + orderName;
         String orderId = requestUtil.creatOrderGroup(orderName,ownerId.toString(),msg);
         OrderEntity orderEntity = new OrderEntity();
@@ -48,7 +49,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean invite2Order(String orderId,Long memberId) throws IOException {
         OrderEntity orderEntity = orderRepository.findOrderEntityByOrderId(orderId);
-        RequestUtil requestUtil = new RequestUtil();
         if(requestUtil.invite2Group(orderId,orderEntity.getOwnerId().toString(),orderEntity.getMsg(),memberId.toString())){
             OrderMemberEntity orderMemberEntity = new OrderMemberEntity();
             orderMemberEntity.setOrderId(orderId);
@@ -63,7 +63,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean quiteOrder(String orderId) throws IOException {
         OrderEntity orderEntity = orderRepository.findOrderEntityByOrderId(orderId);
-        RequestUtil requestUtil = new RequestUtil();
         if(requestUtil.dismissGroup(orderId,orderEntity.getOwnerId().toString())){
             List<OrderMemberEntity> orderMemberEntityList = orderMemberRepository.findOrderMemberEntitiesByOrderId(orderId);
             orderMemberRepository.deleteAll(orderMemberEntityList);

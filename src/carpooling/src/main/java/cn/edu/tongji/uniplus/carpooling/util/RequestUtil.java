@@ -5,6 +5,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPObject;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -14,6 +17,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.crypto.spec.ChaCha20ParameterSpec;
@@ -30,24 +35,31 @@ import java.util.List;
  * @Description TODO
  * @createTime 2021年12月29日 17:39:00
  */
-
+@Component
+@Getter
+@Setter
 public class RequestUtil {
-    @Resource
-    NeteaseConfig neteaseConfig;
 
-    private final String APP_KEY = neteaseConfig.getAppKey();
-    private final String APP_SECRET = neteaseConfig.getAppSecret();
-    private final String NONCE = neteaseConfig.getNonce();
+    private String APP_KEY;
+    private String APP_SECRET;
+    private String NONCE;
 
-    public static void main(String[] args) throws Exception {
-        System.out.println();
-        // 创建云信id
-        //createAccid("https://api.netease.im/nimserver/user/create.action", "034", "测试");
-        // 发送普通消息
-        // sendMessage("https://api.netease.im/nimserver/msg/sendMsg.action","liuxuanlin","0","lin","0","{\"msg\":\"测试测试\"}",null,"","","");
-        // 批量发送消息
-        // sendBatchMessage("https://api.netease.im/nimserver/msg/sendBatchMsg.action","liuxuanlin","['lin']","0","{\"msg\":\"测试测试\"}",null,"","","");
+    @Autowired
+    public RequestUtil(NeteaseConfig neteaseConfig) {
+        APP_KEY = neteaseConfig.getAppKey();
+        APP_SECRET = neteaseConfig.getAppSecret();
+        NONCE = neteaseConfig.getNonce();
     }
+
+//    public static void main(String[] args) throws Exception {
+//        System.out.println();
+//        // 创建云信id
+//        //createAccid("https://api.netease.im/nimserver/user/create.action", "034", "测试");
+//        // 发送普通消息
+//        // sendMessage("https://api.netease.im/nimserver/msg/sendMsg.action","liuxuanlin","0","lin","0","{\"msg\":\"测试测试\"}",null,"","","");
+//        // 批量发送消息
+//        // sendBatchMessage("https://api.netease.im/nimserver/msg/sendBatchMsg.action","liuxuanlin","['lin']","0","{\"msg\":\"测试测试\"}",null,"","","");
+//    }
 
     /**
      * @throws
@@ -108,6 +120,7 @@ public class RequestUtil {
         post.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
         //执行请求
         HttpResponse response = httpclient.execute(post);
+        JSONObject object = JSONObject.parseObject(EntityUtils.toString(response.getEntity()));
         String orderId = "";
         return orderId;
     }
