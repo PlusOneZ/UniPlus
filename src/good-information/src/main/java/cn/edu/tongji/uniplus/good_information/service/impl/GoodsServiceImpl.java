@@ -1,6 +1,8 @@
 package cn.edu.tongji.uniplus.good_information.service.impl;
 
 import cn.edu.tongji.uniplus.good_information.model.GoodGoodEntity;
+import cn.edu.tongji.uniplus.good_information.model.GoodImageEntity;
+import cn.edu.tongji.uniplus.good_information.repository.GoodImageRepository;
 import cn.edu.tongji.uniplus.good_information.repository.GoodsRepository;
 import cn.edu.tongji.uniplus.good_information.service.GoodsService;
 import cn.edu.tongji.uniplus.good_information.service.exception.GoodsNotExistException;
@@ -30,6 +32,9 @@ public class GoodsServiceImpl implements GoodsService {
     @Resource
     OSSManageUtils ossManageUtils;
 
+    @Resource
+    GoodImageRepository goodImageRepository;
+
     @Override
     public GoodGoodEntity getGoodById(Long id) {
         Optional<GoodGoodEntity> goods = goodsRepository.findById(id);
@@ -49,16 +54,19 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Boolean addGoods(
+    public GoodGoodEntity addGoods(
+            Long goodId,
             String title,
             BigDecimal price,
             BigDecimal originalPrice,
             String unit,
             Integer stock,
             String desc,
-            Integer classification
+            Integer classification,
+            Long ownerId
     ) {
         GoodGoodEntity good = new GoodGoodEntity();
+        good.setGoodId(goodId);
         good.setGoodTitle(title);
         good.setGoodCurrentPrice(price);
         good.setGoodOriginalPrice(originalPrice);
@@ -66,12 +74,13 @@ public class GoodsServiceImpl implements GoodsService {
         good.setGoodStock(stock);
         good.setGoodDescription(desc);
         good.setGoodClassification(classification);
+        good.setGoodOwnerId(ownerId);
 
         try {
-            goodsRepository.save(good);
-            return true;
+            return goodsRepository.save(good);
         } catch (Exception e) {
-            return false;
+            System.out.println(e);
+            return null;
         }
     }
 
@@ -83,5 +92,20 @@ public class GoodsServiceImpl implements GoodsService {
             e.printStackTrace();
         }
         return "";
+    }
+
+    @Override
+    public Boolean uploadImageToDB(Long goodId, Integer goodImageIndex, String goodImageUrl) {
+        GoodImageEntity image = new GoodImageEntity();
+        image.setGoodId(goodId);
+        image.setGoodId(goodImageIndex);
+        image.setGoodImageUrl(goodImageUrl);
+        try {
+            goodImageRepository.save(image);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
