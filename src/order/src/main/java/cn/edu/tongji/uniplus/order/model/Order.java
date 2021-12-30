@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Order
@@ -60,4 +62,16 @@ public class Order {
     // unit price
     private Double price;
 
+    public Map<String, String> toMap() {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("goodsId", goodsId.toString());
+        map.put("goodsName", goodsName);
+        map.put("purchaseAmount", amount.toString());
+        map.put("price", price.toString());
+        map.put("photoUrl", photoUrl);
+        map.put("sellerId", sellerId.toString());
+        map.put("buyerId", buyerId.toString());
+        map.put("discountAmount", discountAmount.toString());
+        return map;
+    }
 }

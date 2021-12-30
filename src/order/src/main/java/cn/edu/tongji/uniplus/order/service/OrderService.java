@@ -14,6 +14,8 @@ public interface OrderService {
 
     void createOrderFromPlacement(OrderPlacementEntity placement);
 
+    void cancelOrder(String id);
+
     Order updateOrderStatus(String id, StatusEnum status);
 
     List<Order> getOrderByBuyerId(Long id);
