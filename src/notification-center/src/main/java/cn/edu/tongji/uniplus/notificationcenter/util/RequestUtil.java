@@ -1,6 +1,6 @@
 package cn.edu.tongji.uniplus.notificationcenter.util;
 
-import cn.edu.tongji.uniplus.carpooling.config.NeteaseConfig;
+import cn.edu.tongji.uniplus.notificationcenter.config.NeteaseConfig;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -181,7 +181,7 @@ public class RequestUtil {
         return false;
     }
 
-    public void sendMessage(String url, String from, String ope, String to, String type, String body, String option, String pushcontent, String payload, String ext) throws IOException {
+    public void sendMessage(String url, String from, String ope, String to, String type, String body) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost post = new HttpPost(url);
         String curTime = String.valueOf((new Date().getTime() / 1000L));
@@ -199,10 +199,6 @@ public class RequestUtil {
         nameValuePairs.add(new BasicNameValuePair("to", to));
         nameValuePairs.add(new BasicNameValuePair("type", type));
         nameValuePairs.add(new BasicNameValuePair("body", body));
-        nameValuePairs.add(new BasicNameValuePair("option", option));
-        nameValuePairs.add(new BasicNameValuePair("pushcontent", pushcontent));
-        nameValuePairs.add(new BasicNameValuePair("payload", payload));
-        nameValuePairs.add(new BasicNameValuePair("ext", ext));
         post.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
 
         //执行请求
