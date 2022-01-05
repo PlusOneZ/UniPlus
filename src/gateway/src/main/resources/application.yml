@@ -49,7 +49,8 @@ eureka:
     register-with-eureka: true #注册到Eureka的注册中心
     fetch-registry: true #获取注册实例列表
     service-url:
-      defaultZone: http://112.124.59.163:31011/eureka/  #配置注册中心地址
+      # http://112.124.59.163:31011/eureka/
+      defaultZone: http://112.124.59.163:31011/eureka/ #配置注册中心地址
 
   instance:
     prefer-ip-address: true
