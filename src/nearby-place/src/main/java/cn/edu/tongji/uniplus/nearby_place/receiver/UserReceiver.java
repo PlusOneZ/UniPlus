@@ -1,12 +1,11 @@
-package cn.edu.tongji.uniplus.carpooling.receiver;
+package cn.edu.tongji.uniplus.nearby_place.receiver;
 
-import cn.edu.tongji.uniplus.carpooling.service.UserSyncService;
+import cn.edu.tongji.uniplus.nearby_place.service.UserSyncService;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -17,14 +16,14 @@ import java.util.Map;
  */
 
 @Component
-@RabbitListener(queues = "user.fanout.carpooling")
+@RabbitListener(queues = "UserRegisterQueue")
 public class UserReceiver {
 
     @Resource
     UserSyncService userSyncService;
 
     @RabbitHandler
-    public void process(Map<String, String> user) throws IOException {
+    public void process(Map<String, String> user) {
         System.out.println("收到来自队列的用户！");
         System.out.println(user);
 

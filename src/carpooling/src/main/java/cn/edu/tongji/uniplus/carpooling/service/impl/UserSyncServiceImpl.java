@@ -3,9 +3,12 @@ package cn.edu.tongji.uniplus.carpooling.service.impl;
 import cn.edu.tongji.uniplus.carpooling.model.UserEntity;
 import cn.edu.tongji.uniplus.carpooling.repository.UserRepository;
 import cn.edu.tongji.uniplus.carpooling.service.UserSyncService;
+import cn.edu.tongji.uniplus.carpooling.util.RequestUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -20,12 +23,16 @@ public class UserSyncServiceImpl implements UserSyncService {
     @Resource
     UserRepository userRepository;
 
+    @Resource
+    RequestUtil requestUtil;
+
     @Override
-    public void addUser(Long userId, String nickName) {
+    public void addUser(Long userId, String nickName) throws IOException {
         UserEntity user = new UserEntity();
         user.setUserId(userId);
         user.setUserName(nickName);
         System.out.println("用户信息： " + user.getUserId() + " " + user.getUserName());
+        requestUtil.createAccid("https://api.netease.im/nimserver/user/create.action", userId.toString(), nickName);
         userRepository.save(user);
     }
 

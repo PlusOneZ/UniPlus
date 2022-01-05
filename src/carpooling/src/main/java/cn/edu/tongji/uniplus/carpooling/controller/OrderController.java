@@ -31,8 +31,10 @@ public class OrderController {
         Object stpLoginID =  StpUtil.getLoginIdDefaultNull();
         if(stpLoginID != null) {
             Long userId = Long.parseLong((String) stpLoginID);
-            orderService.createOrder(orderEntity.getOrderName(),userId,orderEntity.getPrice());
-            return SaResult.ok();
+            if(orderService.createOrder(orderEntity.getOrderName(),userId,orderEntity.getPrice())){
+                return SaResult.ok();
+            }
+            return SaResult.code(400).setData("错误");
         }
         else{
             return SaResult.code(400).setData("未登录");

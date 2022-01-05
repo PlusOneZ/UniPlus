@@ -8,11 +8,11 @@
         <version>2.5.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cn.edu.tongji.uniplus</groupId>
-    <artifactId>carpooling</artifactId>
+    <groupId>cn.edu.tongji</groupId>
+    <artifactId>notification-center</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>carpooling</name>
-    <description>carpooling</description>
+    <name>notification-center</name>
+    <description>notification-center</description>
     <properties>
         <java.version>11</java.version>
         <spring-cloud.version>2020.0.4</spring-cloud.version>
@@ -32,6 +32,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -96,19 +97,25 @@
             <artifactId>sa-token-alone-redis</artifactId>
             <version>1.28.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+
     </dependencies>
 
-        <dependencyManagement>
-            <dependencies>
-                <dependency>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-dependencies</artifactId>
-                    <version>${spring-cloud.version}</version>
-                    <type>pom</type>
-                    <scope>import</scope>
-                </dependency>
-            </dependencies>
-        </dependencyManagement>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
