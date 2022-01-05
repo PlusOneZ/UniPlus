@@ -3,6 +3,7 @@ package cn.edu.tongji.uniplus.good_information.service.impl;
 import cn.edu.tongji.uniplus.good_information.model.GoodGoodEntity;
 import cn.edu.tongji.uniplus.good_information.model.GoodImageEntity;
 import cn.edu.tongji.uniplus.good_information.repository.GoodImageRepository;
+import cn.edu.tongji.uniplus.good_information.repository.GoodsImageRepository;
 import cn.edu.tongji.uniplus.good_information.repository.GoodsRepository;
 import cn.edu.tongji.uniplus.good_information.service.GoodsService;
 import cn.edu.tongji.uniplus.good_information.service.exception.GoodsNotExistException;
