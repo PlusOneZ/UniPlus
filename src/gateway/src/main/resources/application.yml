@@ -40,7 +40,14 @@ spring:
           uri: lb://good-service
           predicates: # Pattern /api/{segment}/<locator-of-your-apis>/**, locator 请见飞书文档
             - Path=/api/{segment}/good/**,
-
+        - id: chatting-service
+            uri: lb://chatting-service
+            predicates: # Pattern /api/{segment}/<locator-of-your-apis>/**, locator 请见飞书文档
+              - Path=/api/{segment}/chatting/**
+        - id: carpooling-service
+            uri: lb://carpooling-service
+            predicates: # Pattern /api/{segment}/<locator-of-your-apis>/**, locator 请见飞书文档
+              - Path=/api/{segment}/carpooling/**
   application:
     name: gateway
 
