@@ -1,5 +1,6 @@
 package cn.edu.tongji.uniplus.user.controller;
 
+import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.edu.tongji.uniplus.user.dto.UserInfoDTO;
 import cn.edu.tongji.uniplus.user.dto.UserSignupDTO;
@@ -35,6 +36,30 @@ public class UserController {
         userInfo.setUserRealName(userInfoEntity.getUserRealName());
 
         return ResponseEntity.status(200).body(userInfo);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<UserInfoDTO> getUserInfo() {
+        try {
+            Long userId = Long.parseLong((String)StpUtil.getLoginId());
+            UserInfoDTO userInfo = new UserInfoDTO();
+            UserEntity userInfoEntity = userInfoService.getUserInfo(userId);
+
+            userInfo.setUserId(userInfoEntity.getUserId());
+            userInfo.setUserSchoolId(userInfoEntity.getUserSchoolId());
+            userInfo.setUserNickName(userInfoEntity.getUserNickName());
+            userInfo.setUserPhone(userInfoEntity.getUserPhone());
+            userInfo.setUserPhoneCode(userInfoEntity.getUserPhoneCode());
+            userInfo.setUserCreateTime(userInfoEntity.getUserCreateTime());
+            userInfo.setUserGender(userInfoEntity.getUserGender());
+            userInfo.setUserAvatarLink(userInfoEntity.getUserAvatarLink());
+            userInfo.setUserRole(userInfoEntity.getUserRole());
+            userInfo.setUserRealName(userInfoEntity.getUserRealName());
+
+            return ResponseEntity.status(200).body(userInfo);
+        } catch (NotLoginException e) {
+            return ResponseEntity.status(401).body(null);
+        }
     }
 
     @PutMapping("/{userId}")
