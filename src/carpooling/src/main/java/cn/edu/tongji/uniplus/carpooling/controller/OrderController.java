@@ -2,12 +2,10 @@ package cn.edu.tongji.uniplus.carpooling.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
-import cn.edu.tongji.uniplus.carpooling.model.OrderEntity;
+import cn.edu.tongji.uniplus.carpooling.model.OrderGroupEntity;
 import cn.edu.tongji.uniplus.carpooling.model.OrderMemberEntity;
 import cn.edu.tongji.uniplus.carpooling.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -27,7 +25,7 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/newOrder")
-    public SaResult addOrder(@RequestBody OrderEntity orderEntity) throws IOException {
+    public SaResult addOrder(@RequestBody OrderGroupEntity orderEntity) throws IOException {
         Object stpLoginID =  StpUtil.getLoginIdDefaultNull();
         if(stpLoginID != null) {
             Long userId = Long.parseLong((String) stpLoginID);
@@ -54,8 +52,13 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/getInfo/{destination}")
+    public SaResult addOrder(@PathVariable String destination){
+        return SaResult.ok().setData(orderService.getOrders(destination));
+    }
+
     @DeleteMapping("/delete")
-    public SaResult addOrder(@RequestParam String order_id) throws IOException {
+    public SaResult deleteOrder(@RequestParam String order_id) throws IOException {
         Object stpLoginID =  StpUtil.getLoginIdDefaultNull();
         if(stpLoginID != null) {
             Long userId = Long.parseLong((String) stpLoginID);
