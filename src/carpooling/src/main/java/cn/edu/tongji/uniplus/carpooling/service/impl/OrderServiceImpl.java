@@ -4,7 +4,6 @@ import cn.edu.tongji.uniplus.carpooling.model.OrderGroupEntity;
 import cn.edu.tongji.uniplus.carpooling.model.OrderMemberEntity;
 import cn.edu.tongji.uniplus.carpooling.repository.OrderGroupRepository;
 import cn.edu.tongji.uniplus.carpooling.repository.OrderMemberRepository;
-import cn.edu.tongji.uniplus.carpooling.model.OrderEntity;
 import cn.edu.tongji.uniplus.carpooling.service.OrderService;
 import cn.edu.tongji.uniplus.carpooling.util.RequestUtil;
 import com.github.yitter.idgen.YitIdHelper;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -74,5 +72,10 @@ public class OrderServiceImpl implements OrderService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<OrderGroupEntity> getOrders(String destination) {
+        return orderRepository.findOrderGroupEntitiesByNameLike(destination);
     }
 }

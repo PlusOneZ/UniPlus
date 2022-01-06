@@ -1,8 +1,10 @@
 package cn.edu.tongji.uniplus.carpooling.service;
 
+import cn.edu.tongji.uniplus.carpooling.model.OrderGroupEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author tangshuo
@@ -19,4 +21,6 @@ public interface OrderService {
     boolean invite2Order(String orderId, Long memberId) throws IOException;
 
     boolean quiteOrder(String orderId) throws IOException;
+
+    List<OrderGroupEntity> getOrders(String destination);
 }
