@@ -18,7 +18,7 @@ import java.io.IOException;
  * @createTime 2021年12月29日 23:23:00
  */
 @RestController
-@RequestMapping("/api/v1/catpooling/order")
+@RequestMapping("/api/v1/carpooling/order")
 public class OrderController {
 
     @Autowired
