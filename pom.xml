@@ -9,7 +9,17 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>Carpooling</module>
+        <module>src/carpooling</module>
+        <module>src/notification-center</module>
+        <module>src/chatting</module>
+        <module>src/eureka</module>
+        <module>src/gateway</module>
+        <module>src/good-information</module>
+        <module>src/nearby-place</module>
+        <module>src/order</module>
+        <module>src/payment</module>
+        <module>src/post</module>
+        <module>src/user-service</module>
     </modules>
 
     <properties>
