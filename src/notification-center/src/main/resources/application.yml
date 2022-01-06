@@ -1,0 +1,44 @@
+sa-token:
+  # SSO-相关配置
+  sso:
+    # 是否打开单点注销接口
+    is-slo: true
+    auth-url: http://81.68.233.64
+
+  # 配置Sa-Token单独使用的Redis连接 （此处需要和SSO-Server端连接同一个Redis）
+  alone-redis:
+    # Redis数据库索引 (默认为0)
+    database: 1
+    # Redis服务器地址
+    host: 81.68.233.64
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password: ENC(uvFPbhcKZRa1IfScG7qz3iUMvjjwHF2M)
+
+spring:
+
+  application:
+    name: carpooling-service #服务名称
+
+  rabbitmq:
+    host: 81.68.233.64
+    port: 5672
+    username: ENC(t4zbGzLsn3Tb+gGqofPZ1w==)
+    password: ENC(uvFPbhcKZRa1IfScG7qz3iUMvjjwHF2M)
+
+
+eureka:
+  client:
+    register-with-eureka: true #注册到Eureka的注册中心
+    fetch-registry: true #获取注册实例列表
+    service-url:
+      #112.124.59.163:31011
+      defaultZone: http://112.124.59.163:31011/eureka/ #配置注册中心地址
+
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+
+
